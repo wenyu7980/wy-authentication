@@ -1,7 +1,7 @@
 package com.wenyu7980.authentication.common.feign;
 
 import com.wenyu7980.authentication.common.EnableWYAuthentication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EnableWYAuthentication("")
-@ComponentScan
+@Import(AuthenticationServiceFeign.class)
 public @interface EnableWYAuthenticationFeign {
     @AliasFor(annotation = EnableWYAuthentication.class) String value();
 }

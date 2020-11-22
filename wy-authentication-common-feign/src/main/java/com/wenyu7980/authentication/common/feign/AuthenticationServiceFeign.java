@@ -5,7 +5,6 @@ import com.wenyu7980.authentication.api.service.PermissionInternalService;
 import com.wenyu7980.authentication.common.AuthPermissionService;
 import com.wenyu7980.authentication.common.AuthRequestPermission;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
  *
  * @author wenyu
  */
-@Service
 public class AuthenticationServiceFeign implements AuthPermissionService {
     @Autowired
     private PermissionInternalService internalService;

@@ -27,7 +27,7 @@ import java.util.Set;
  * @author wenyu
  */
 public class AuthenticationStarter implements CommandLineRunner, ImportAware {
-    @Autowired(required = false)
+    @Autowired
     private AuthPermissionService authPermissionService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationStarter.class);
@@ -127,9 +127,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                 }
             }
         }
-        if (this.authPermissionService != null) {
-            this.authPermissionService.save(permissions);
-        }
+        this.authPermissionService.save(permissions);
         LOGGER.info("REST请求共{}个", permissions.size());
     }
 
