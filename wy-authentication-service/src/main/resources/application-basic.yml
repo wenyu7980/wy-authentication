@@ -3,3 +3,10 @@ server:
 spring:
   application:
     name: wy-authentication
+  datasource:
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    schema:
+      - classpath:schema-authentication.sql

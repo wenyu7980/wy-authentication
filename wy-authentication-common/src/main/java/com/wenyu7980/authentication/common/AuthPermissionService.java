@@ -9,7 +9,8 @@ import java.util.Collection;
 public interface AuthPermissionService {
     /**
      * 保存
+     * @param applicationName
      * @param permissions
      */
-    void save(Collection<AuthRequestPermission> permissions);
+    void manipulation(String applicationName, Collection<AuthRequestPermission> permissions);
 }

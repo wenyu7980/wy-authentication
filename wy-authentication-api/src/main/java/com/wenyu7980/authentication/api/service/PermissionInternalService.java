@@ -2,10 +2,11 @@ package com.wenyu7980.authentication.api.service;
 
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -15,8 +16,10 @@ import java.util.Collection;
 public interface PermissionInternalService {
     /**
      * 维护
+     * @param applicationName
      * @param permissions
      */
-    @PostMapping
-    void manipulation(@RequestBody Collection<PermissionInternalManipulation> permissions);
+    @PutMapping
+    void manipulation(@RequestParam("applicationName") String applicationName,
+      @RequestBody Set<PermissionInternalManipulation> permissions);
 }

@@ -16,5 +16,11 @@ public @interface EnableWYAuthentication {
      * basePackage
      * @return
      */
-    String value();
+    String value() default "";
+
+    /**
+     * 应用名称
+     * @return
+     */
+    String name() default "";
 }

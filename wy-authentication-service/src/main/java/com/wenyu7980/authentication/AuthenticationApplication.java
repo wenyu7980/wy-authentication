@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author wenyu
  */
 @SpringBootApplication
-@EnableWYAuthenticationFeign("com.wenyu7980.authentication")
+@EnableWYAuthenticationFeign
 @EnableDiscoveryClient
 @EnableFeignClients
 public class AuthenticationApplication {

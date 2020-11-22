@@ -12,8 +12,10 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnableWYAuthentication("")
+@EnableWYAuthentication
 @Import(AuthenticationServiceFeign.class)
 public @interface EnableWYAuthenticationFeign {
-    @AliasFor(annotation = EnableWYAuthentication.class) String value();
+    @AliasFor(annotation = EnableWYAuthentication.class) String value() default "";
+
+    @AliasFor(annotation = EnableWYAuthentication.class) String name() default "";
 }

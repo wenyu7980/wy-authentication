@@ -70,5 +70,4 @@ public class AuthRequestPermission {
         return "AuthRequestPermission{" + "method='" + method + '\'' + ", path='" + path + '\'' + ", name='" + name
           + '\'' + ", requesterType=" + requesterType + ", required=" + required + ", check=" + check + '}';
     }
-
 }

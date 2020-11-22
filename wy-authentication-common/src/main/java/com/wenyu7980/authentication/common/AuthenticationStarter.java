@@ -5,11 +5,13 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,10 +29,11 @@ import java.util.Set;
  * @author wenyu
  */
 public class AuthenticationStarter implements CommandLineRunner, ImportAware {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationStarter.class);
     @Autowired
     private AuthPermissionService authPermissionService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationStarter.class);
+    @Value("${spring.application.name:''}")
+    private String applicationName;
     private String basePackage;
 
     @Override
@@ -127,7 +130,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                 }
             }
         }
-        this.authPermissionService.save(permissions);
+        this.authPermissionService.manipulation(this.applicationName, permissions);
         LOGGER.info("REST请求共{}个", permissions.size());
     }
 
@@ -148,8 +151,14 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
 
     @Override
     public void setImportMetadata(AnnotationMetadata annotationMetadata) {
-        Map<String, Object> attributes = annotationMetadata
-          .getAnnotationAttributes(EnableWYAuthentication.class.getName());
+        StandardAnnotationMetadata metadata = (StandardAnnotationMetadata) annotationMetadata;
+        Map<String, Object> attributes = metadata.getAnnotationAttributes(EnableWYAuthentication.class.getName());
         this.basePackage = attributes.get("value").toString();
+        if ("".equals(basePackage)) {
+            this.basePackage = metadata.getIntrospectedClass().getPackage().getName();
+        }
+        if (!"".equals(attributes.getOrDefault("name", ""))) {
+            this.applicationName = attributes.get("name").toString();
+        }
     }
 }

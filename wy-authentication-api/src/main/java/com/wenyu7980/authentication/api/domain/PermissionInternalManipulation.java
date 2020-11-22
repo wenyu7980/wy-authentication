@@ -48,4 +48,11 @@ public class PermissionInternalManipulation {
     public boolean isCheck() {
         return check;
     }
+
+    @Override
+    public String toString() {
+        return "PermissionInternalManipulation{" + "method='" + method + '\'' + ", path='" + path + '\'' + ", name='"
+          + name + '\'' + ", requesterType='" + requesterType + '\'' + ", required=" + required + ", check=" + check
+          + '}';
+    }
 }

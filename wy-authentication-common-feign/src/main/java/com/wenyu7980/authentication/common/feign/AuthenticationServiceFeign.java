@@ -18,9 +18,9 @@ public class AuthenticationServiceFeign implements AuthPermissionService {
     private PermissionInternalService internalService;
 
     @Override
-    public void save(Collection<AuthRequestPermission> permissions) {
-        internalService.manipulation(permissions.stream().map(
+    public void manipulation(String applicationName, Collection<AuthRequestPermission> permissions) {
+        internalService.manipulation(applicationName, permissions.stream().map(
           p -> new PermissionInternalManipulation(p.getMethod(), p.getPath(), p.getName(), p.getRequesterType().name(),
-            p.isRequired(), p.isCheck())).collect(Collectors.toList()));
+            p.isRequired(), p.isCheck())).collect(Collectors.toSet()));
     }
 }
