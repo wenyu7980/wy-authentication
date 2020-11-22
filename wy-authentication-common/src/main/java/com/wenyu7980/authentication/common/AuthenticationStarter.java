@@ -4,13 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +26,10 @@ import java.util.Set;
  *
  * @author wenyu
  */
-@Component
 public class AuthenticationStarter implements CommandLineRunner, ImportAware {
+    @Autowired(required = false)
+    private AuthPermissionService authPermissionService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationStarter.class);
     private String basePackage;
 
@@ -54,11 +56,11 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
             // swagger api
             String controllerName = "";
             Api api = clazz.getAnnotation(Api.class);
-            if (Objects.nonNull(api)) {
-                controllerName = api.value();
+            if (Objects.nonNull(api) && api.tags().length > 0) {
+                controllerName = api.tags()[0];
             }
             // auth request
-            AuthRequesterType controllerRequestType = null;
+            AuthRequesterType controllerRequestType = AuthRequesterType.DETERMINE;
             boolean controllerCheck = true;
             boolean controllerRequired = true;
             AuthRequest authRequest = clazz.getAnnotation(AuthRequest.class);
@@ -121,12 +123,14 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                     AuthRequestPermission permission = new AuthRequestPermission(methodMethod, path, methodName,
                       methodRequesterType, methodCheck, methodRequired);
                     permissions.add(permission);
-                    LOGGER.debug("REST请求:", permission);
+                    LOGGER.debug("REST请求:{}", permission);
                 }
             }
         }
+        if (this.authPermissionService != null) {
+            this.authPermissionService.save(permissions);
+        }
         LOGGER.info("REST请求共{}个", permissions.size());
-
     }
 
     private String getPath(String[] value, String[] path) {
