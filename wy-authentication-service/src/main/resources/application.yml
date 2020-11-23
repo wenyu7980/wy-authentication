@@ -10,6 +10,3 @@ spring:
     username: root
     password: password
     initialization-mode: never
-logging:
-  level:
-    com.wenyu7980.authentication.common: debug
