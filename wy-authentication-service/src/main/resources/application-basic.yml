@@ -10,3 +10,6 @@ spring:
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     schema:
       - classpath:schema-authentication.sql
+logging:
+  level:
+    com.wenyu7980.authentication.common: debug

@@ -102,7 +102,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                     boolean methodCheck = controllerCheck;
                     AuthRequesterType methodRequesterType = controllerRequestType;
                     if (Objects.nonNull(methodRequest)) {
-                        methodRequired = methodRequest.check();
+                        methodRequired = methodRequest.required();
                         methodCheck = methodRequest.check();
                         methodRequesterType = methodRequest.requesterType() == AuthRequesterType.DETERMINE ?
                           methodRequesterType :
@@ -124,7 +124,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                         }
                     }
                     AuthRequestPermission permission = new AuthRequestPermission(methodMethod, path, methodName,
-                      methodRequesterType, methodCheck, methodRequired);
+                      methodRequesterType, methodRequired, methodCheck);
                     permissions.add(permission);
                     LOGGER.debug("REST请求:{}", permission);
                 }

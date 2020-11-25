@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @ApiOperation("登录")
     @PostMapping("login")
-    @AuthRequest(required = false, check = false, requesterType = AuthRequesterType.COMMON)
+    @AuthRequest(required = false, requesterType = AuthRequesterType.COMMON)
     public LoginResult login(@RequestBody Login login) {
         return new LoginResult();
     }

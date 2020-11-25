@@ -1,5 +1,7 @@
 package com.wenyu7980.authentication.api.domain;
 
+import com.wenyu7980.authentication.api.constant.RequesterType;
+
 /**
  *
  * @author wenyu
@@ -8,14 +10,14 @@ public class PermissionInternalManipulation {
     private String method;
     private String path;
     private String name;
-    private String requesterType;
+    private RequesterType requesterType;
     private boolean required;
     private boolean check;
 
     public PermissionInternalManipulation() {
     }
 
-    public PermissionInternalManipulation(String method, String path, String name, String requesterType,
+    public PermissionInternalManipulation(String method, String path, String name, RequesterType requesterType,
       boolean required, boolean check) {
         this.method = method;
         this.path = path;
@@ -37,7 +39,7 @@ public class PermissionInternalManipulation {
         return name;
     }
 
-    public String getRequesterType() {
+    public RequesterType getRequesterType() {
         return requesterType;
     }
 

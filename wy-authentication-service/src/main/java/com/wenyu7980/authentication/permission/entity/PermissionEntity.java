@@ -1,9 +1,8 @@
 package com.wenyu7980.authentication.permission.entity;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.wenyu7980.authentication.api.constant.RequesterType;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,7 +18,8 @@ public class PermissionEntity {
     /** 名称 */
     private String name;
     /** 类型 */
-    private String requesterType;
+    @Enumerated(EnumType.STRING)
+    private RequesterType requesterType;
     /** 是否需要登录 */
     private Boolean requiredFlag;
     /** 是否进行校验 */
@@ -28,20 +28,20 @@ public class PermissionEntity {
     protected PermissionEntity() {
     }
 
-    public PermissionEntity(String applicationName, String method, String path, String name, String requesterType,
-      boolean requiredFlag, boolean checkFlag) {
+    public PermissionEntity(String applicationName, String method, String path, String name,
+      RequesterType requesterType, boolean requiredFlag, boolean checkFlag) {
         this.key = new PermissionKey(applicationName, method, path);
         this.name = name;
         this.requesterType = requesterType;
         this.requiredFlag = requiredFlag;
-        this.checkFlag = checkFlag;
+        this.checkFlag = this.requiredFlag && checkFlag;
     }
 
-    public void modify(String name, String requesterType, boolean required, boolean check) {
+    public void modify(String name, RequesterType requesterType, boolean required, boolean check) {
         this.name = name;
         this.requesterType = requesterType;
         this.requiredFlag = required;
-        this.checkFlag = check;
+        this.checkFlag = this.requiredFlag && check;
     }
 
     public String getMethod() {
@@ -60,7 +60,7 @@ public class PermissionEntity {
         return name;
     }
 
-    public String getRequesterType() {
+    public RequesterType getRequesterType() {
         return requesterType;
     }
 
