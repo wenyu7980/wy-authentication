@@ -25,10 +25,10 @@ public interface PermissionService {
 
     /**
      * 查询
-     * @param applicationName
+     * @param serviceName
      * @return
      */
-    Set<PermissionEntity> findByApplicationName(String applicationName);
+    Set<PermissionEntity> findByServiceName(String serviceName);
 
     /**
      * 删除

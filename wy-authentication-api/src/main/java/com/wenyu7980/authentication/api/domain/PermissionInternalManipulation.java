@@ -11,8 +11,8 @@ public class PermissionInternalManipulation {
     private String path;
     private String name;
     private RequesterType requesterType;
-    private boolean required;
-    private boolean check;
+    private Boolean required;
+    private Boolean check;
 
     public PermissionInternalManipulation() {
     }
@@ -43,11 +43,11 @@ public class PermissionInternalManipulation {
         return requesterType;
     }
 
-    public boolean isRequired() {
+    public Boolean getRequired() {
         return required;
     }
 
-    public boolean isCheck() {
+    public Boolean getCheck() {
         return check;
     }
 

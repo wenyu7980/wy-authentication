@@ -28,9 +28,9 @@ public class PermissionEntity {
     protected PermissionEntity() {
     }
 
-    public PermissionEntity(String applicationName, String method, String path, String name,
-      RequesterType requesterType, boolean requiredFlag, boolean checkFlag) {
-        this.key = new PermissionKey(applicationName, method, path);
+    public PermissionEntity(String serviceName, String method, String path, String name, RequesterType requesterType,
+      boolean requiredFlag, boolean checkFlag) {
+        this.key = new PermissionKey(serviceName, method, path);
         this.name = name;
         this.requesterType = requesterType;
         this.requiredFlag = requiredFlag;
@@ -52,8 +52,8 @@ public class PermissionEntity {
         return key.getPath();
     }
 
-    public String getApplicationName() {
-        return this.key.applicationName;
+    public String getServiceName() {
+        return this.key.serviceName;
     }
 
     public String getName() {
@@ -94,19 +94,19 @@ public class PermissionEntity {
         private String method;
         private String path;
         /** 应用名称 */
-        private String applicationName;
+        private String serviceName;
 
         protected PermissionKey() {
         }
 
-        public PermissionKey(String applicationName, String method, String path) {
-            this.applicationName = applicationName;
+        public PermissionKey(String serviceName, String method, String path) {
+            this.serviceName = serviceName;
             this.method = method;
             this.path = path;
         }
 
-        public String getApplicationName() {
-            return applicationName;
+        public String getServiceName() {
+            return serviceName;
         }
 
         public String getMethod() {

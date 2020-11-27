@@ -25,23 +25,23 @@ public class PermissionInternalHandlerImpl implements PermissionInternalHandler 
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-    public void manipulation(String applicationName, Collection<PermissionInternalManipulation> permissions) {
-        Set<PermissionEntity> entities = permissionService.findByApplicationName(applicationName);
+    public void manipulation(String serviceName, Collection<PermissionInternalManipulation> permissions) {
+        Set<PermissionEntity> entities = permissionService.findByServiceName(serviceName);
         Set<PermissionEntity> permissionSet = new HashSet<>();
         outer:
         for (PermissionInternalManipulation permission : permissions) {
             for (PermissionEntity entity : entities) {
                 if (Objects.equals(permission.getMethod(), entity.getMethod()) && Objects
                   .equals(permission.getPath(), entity.getPath())) {
-                    entity.modify(permission.getName(), permission.getRequesterType(), permission.isRequired(),
-                      permission.isCheck());
+                    entity.modify(permission.getName(), permission.getRequesterType(), permission.getRequired(),
+                      permission.getCheck());
                     permissionSet.add(entity);
                     continue outer;
                 }
             }
             permissionSet.add(
-              new PermissionEntity(applicationName, permission.getMethod(), permission.getPath(), permission.getName(),
-                permission.getRequesterType(), permission.isRequired(), permission.isCheck()));
+              new PermissionEntity(serviceName, permission.getMethod(), permission.getPath(), permission.getName(),
+                permission.getRequesterType(), permission.getRequired(), permission.getCheck()));
         }
         if (entities.removeAll(permissionSet)) {
             permissionService.delete(entities);

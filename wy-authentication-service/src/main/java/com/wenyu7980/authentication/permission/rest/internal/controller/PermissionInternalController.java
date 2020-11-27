@@ -30,9 +30,9 @@ public class PermissionInternalController implements PermissionInternalService {
 
     @PutMapping
     @Override
-    public void manipulation(@RequestParam String applicationName,
+    public void manipulation(@RequestParam String serviceName,
       @RequestBody Set<PermissionInternalManipulation> permissions) {
-        internalHandler.manipulation(applicationName, permissions);
+        internalHandler.manipulation(serviceName, permissions);
     }
 
     @GetMapping("list")

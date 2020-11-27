@@ -29,8 +29,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Set<PermissionEntity> findByApplicationName(String applicationName) {
-        return permissionRepo.findByKeyApplicationName(applicationName);
+    public Set<PermissionEntity> findByServiceName(String serviceName) {
+        return permissionRepo.findByKeyServiceName(serviceName);
     }
 
     @Override

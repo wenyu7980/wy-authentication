@@ -19,5 +19,5 @@ public interface PermissionRepo
      * @param applicationName
      * @return
      */
-    Set<PermissionEntity> findByKeyApplicationName(String applicationName);
+    Set<PermissionEntity> findByKeyServiceName(String applicationName);
 }

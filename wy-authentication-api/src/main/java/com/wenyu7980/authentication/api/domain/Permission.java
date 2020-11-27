@@ -8,7 +8,7 @@ import com.wenyu7980.authentication.api.constant.RequesterType;
  */
 public class Permission {
     /** 服务名 */
-    private String applicationName;
+    private String serviceName;
     /** 方法 */
     private String method;
     /** 路径 */
@@ -18,16 +18,16 @@ public class Permission {
     /** 请求者类型 */
     private RequesterType requesterType;
     /** 是否校验token */
-    private boolean required;
+    private Boolean required;
     /** 是否校验接口 */
-    private boolean check;
+    private Boolean check;
 
-    public String getApplicationName() {
-        return applicationName;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getMethod() {
@@ -62,19 +62,19 @@ public class Permission {
         this.requesterType = requesterType;
     }
 
-    public boolean isRequired() {
+    public Boolean getRequired() {
         return required;
     }
 
-    public void setRequired(boolean required) {
+    public void setRequired(Boolean required) {
         this.required = required;
     }
 
-    public boolean isCheck() {
+    public Boolean getCheck() {
         return check;
     }
 
-    public void setCheck(boolean check) {
+    public void setCheck(Boolean check) {
         this.check = check;
     }
 }

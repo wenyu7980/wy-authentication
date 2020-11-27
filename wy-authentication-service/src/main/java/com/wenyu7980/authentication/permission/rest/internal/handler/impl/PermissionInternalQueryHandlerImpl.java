@@ -17,7 +17,7 @@ public class PermissionInternalQueryHandlerImpl extends AbstractQueryListHandler
     @Override
     public Permission convertList(PermissionEntity entity) {
         Permission permission = new Permission();
-        permission.setApplicationName(entity.getApplicationName());
+        permission.setServiceName(entity.getServiceName());
         permission.setCheck(entity.getCheckFlag());
         permission.setMethod(entity.getMethod());
         permission.setPath(entity.getPath());

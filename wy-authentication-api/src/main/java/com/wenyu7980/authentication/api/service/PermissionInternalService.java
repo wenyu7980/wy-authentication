@@ -19,11 +19,11 @@ import java.util.Set;
 public interface PermissionInternalService {
     /**
      * 维护
-     * @param applicationName
+     * @param serviceName
      * @param permissions
      */
     @PutMapping
-    void manipulation(@RequestParam("applicationName") String applicationName,
+    void manipulation(@RequestParam("serviceName") String serviceName,
       @RequestBody Set<PermissionInternalManipulation> permissions);
 
     /**
