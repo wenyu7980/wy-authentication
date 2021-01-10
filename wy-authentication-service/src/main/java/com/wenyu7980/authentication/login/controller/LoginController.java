@@ -1,27 +1,29 @@
 package com.wenyu7980.authentication.login.controller;
 
-import com.wenyu7980.authentication.common.AuthRequest;
-import com.wenyu7980.authentication.common.AuthRequesterType;
-import com.wenyu7980.authentication.login.domain.Login;
-import com.wenyu7980.authentication.login.domain.LoginResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.wenyu7980.authentication.api.domain.LoginInternal;
+import com.wenyu7980.authentication.api.domain.LoginResultInternal;
+import com.wenyu7980.authentication.api.service.LoginInternalService;
+import com.wenyu7980.authentication.login.handler.LoginHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author wenyu
  */
-@Api(tags = "登录")
 @RestController
-public class LoginController {
-    @ApiOperation("登录")
+@RequestMapping("internal")
+public class LoginController implements LoginInternalService {
+    @Autowired
+    private LoginHandler loginHandler;
+
+    @Override
     @PostMapping("login")
-    @AuthRequest(required = false, requesterType = AuthRequesterType.COMMON)
-    public LoginResult login(@RequestBody Login login) {
-        return new LoginResult();
+    public LoginResultInternal login(@RequestBody LoginInternal login) {
+        return loginHandler.login(login);
     }
 
 }

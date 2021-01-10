@@ -15,7 +15,7 @@ import java.util.Set;
  *
  * @author wenyu
  */
-@FeignClient(name = "wy-authentication", path = "internal/permissions")
+@FeignClient(name = "wy-authentication", path = "internal/permissions", contextId = "wy-auth-permissions")
 public interface PermissionInternalService {
     /**
      * 维护
