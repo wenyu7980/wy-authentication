@@ -5,10 +5,19 @@ package com.wenyu7980.authentication.api.domain;
  * @author wenyu
  */
 public class LoginResultInternal {
+    private String userId;
     private String token;
     private String username;
     private String mobile;
     private String email;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getToken() {
         return token;

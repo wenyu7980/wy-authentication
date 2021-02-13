@@ -1,4 +1,4 @@
-package com.wenyu7980.authentication.login.handler;
+package com.wenyu7980.authentication.login.rest.internal.handler;
 
 import com.wenyu7980.authentication.api.domain.LoginInternal;
 import com.wenyu7980.authentication.api.domain.LoginResultInternal;

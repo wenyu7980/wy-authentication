@@ -1,8 +1,10 @@
-package com.wenyu7980.authentication.login.handler.impl;
+package com.wenyu7980.authentication.login.rest.internal.handler.impl;
 
 import com.wenyu7980.authentication.api.domain.LoginInternal;
 import com.wenyu7980.authentication.api.domain.LoginResultInternal;
-import com.wenyu7980.authentication.login.handler.LoginHandler;
+import com.wenyu7980.authentication.login.entity.TokenEntity;
+import com.wenyu7980.authentication.login.rest.internal.handler.LoginHandler;
+import com.wenyu7980.authentication.login.service.TokenService;
 import com.wenyu7980.authentication.user.entity.UserEntity;
 import com.wenyu7980.authentication.user.service.UserService;
 import com.wenyu7980.common.exceptions.code400.BadBodyException;
@@ -27,6 +29,9 @@ public class LoginHandlerImpl implements LoginHandler {
     private final DecisionTable<Function<LoginInternal, UserEntity>> TABLE = DecisionTable.of();
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     public LoginHandlerImpl(UserService userService) {
         this.userService = userService;
         // username,mobile,email,password
@@ -41,9 +46,12 @@ public class LoginHandlerImpl implements LoginHandler {
           .get(login.getUsername(), login.getMobile(), login.getEmail(), login.getPassword())
           .orElseThrow(() -> new BadBodyException("请求参数组合不正确")).apply(login);
         LoginResultInternal result = new LoginResultInternal();
+        TokenEntity token = tokenService.save(new TokenEntity(entity.getId()));
+        result.setUserId(entity.getId());
         result.setUsername(entity.getUsername());
         result.setEmail(entity.getEmail());
         result.setMobile(entity.getMobile());
+        result.setToken(token.getToken());
         return result;
     }
 

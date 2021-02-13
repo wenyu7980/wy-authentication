@@ -1,9 +1,9 @@
-package com.wenyu7980.authentication.login.controller;
+package com.wenyu7980.authentication.login.rest.internal.controller;
 
 import com.wenyu7980.authentication.api.domain.LoginInternal;
 import com.wenyu7980.authentication.api.domain.LoginResultInternal;
 import com.wenyu7980.authentication.api.service.LoginInternalService;
-import com.wenyu7980.authentication.login.handler.LoginHandler;
+import com.wenyu7980.authentication.login.rest.internal.handler.LoginHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

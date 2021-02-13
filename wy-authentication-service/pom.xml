@@ -40,7 +40,12 @@
         </dependency>
         <dependency>
             <groupId>com.wenyu7980</groupId>
-            <artifactId>wy-common-data-jpa</artifactId>
+            <artifactId>wy-common-data-jpa-query</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wenyu7980</groupId>
+            <artifactId>wy-common-data-jpa-generator</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>

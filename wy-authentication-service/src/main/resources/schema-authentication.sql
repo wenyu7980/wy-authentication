@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `auth_user`;
 DROP TABLE IF EXISTS `auth_permission`;
+DROP TABLE IF EXISTS `auth_token`;
 
 
 -- 用户表
@@ -29,3 +30,13 @@ CREATE TABLE `auth_permission`(
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '权限表';
+
+-- token表
+CREATE TABLE `auth_token`(
+  `token` varchar(36) NOT NULL COMMENT 'token',
+  `user_id` varchar(45) NOT NULL COMMENT '用户id',
+  `login_date_time` datetime NOT NULL COMMENT '登录时间',
+  primary key(`token`)
+)
+ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
+COMMENT 'token表';

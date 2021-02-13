@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author wenyu
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleAdminController {
     @ApiOperation("分页查询")
     @GetMapping()
-    public void getPage() {
-
+    public List<String> getPage() {
+        return new ArrayList<>();
     }
 }

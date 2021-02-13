@@ -7,9 +7,14 @@ spring:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate.ejb.identifier_generator_strategy_provider: com.wenyu7980.data.jpa.generator.IdGeneratorStrategyProvider
+
   datasource:
     schema:
       - classpath:schema-authentication.sql
+    data:
+      - classpath:data-authentication.sql
 logging:
   level:
     com.wenyu7980.authentication.common: debug
