@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 8001
 spring:
   application:
     name: wy-authentication
@@ -9,7 +9,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate.ejb.identifier_generator_strategy_provider: com.wenyu7980.data.jpa.generator.IdGeneratorStrategyProvider
-
   datasource:
     schema:
       - classpath:schema-authentication.sql
