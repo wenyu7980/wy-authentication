@@ -1,12 +1,16 @@
+server:
+  port: 8001
 spring:
-  profiles:
-    include: basic
-  cloud:
-    nacos:
-      discovery:
-        server-addr: "127.0.0.1:8848"
+  application:
+    name: wy-authentication
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate.ejb.identifier_generator_strategy_provider: com.wenyu7980.data.jpa.generator.IdGeneratorStrategyProvider
   datasource:
-    url: jdbc:mysql://192.168.3.200:3306/authentication?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: password
-    initialization-mode: always
+    schema:
+      - classpath:schema-authentication.sql
+    data:
+      - classpath:data-authentication.sql
