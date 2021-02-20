@@ -24,6 +24,7 @@ public class PermissionInternalQueryHandlerImpl extends AbstractQueryListHandler
         permission.setName(entity.getName());
         permission.setRequesterType(entity.getRequesterType());
         permission.setRequired(entity.getRequiredFlag());
+        permission.setResource(entity.getResource());
         return permission;
     }
 }

@@ -33,15 +33,16 @@ public class PermissionInternalHandlerImpl implements PermissionInternalHandler 
             for (PermissionEntity entity : entities) {
                 if (Objects.equals(permission.getMethod(), entity.getMethod()) && Objects
                   .equals(permission.getPath(), entity.getPath())) {
-                    entity.modify(permission.getName(), permission.getRequesterType(), permission.getRequired(),
-                      permission.getCheck());
+                    entity.modify(permission.getName(), permission.getResource(), permission.getRequesterType(),
+                      permission.getRequired(), permission.getCheck());
                     permissionSet.add(entity);
                     continue outer;
                 }
             }
             permissionSet.add(
               new PermissionEntity(serviceName, permission.getMethod(), permission.getPath(), permission.getName(),
-                permission.getRequesterType(), permission.getRequired(), permission.getCheck()));
+                permission.getResource(), permission.getRequesterType(), permission.getRequired(),
+                permission.getCheck()));
         }
         if (entities.removeAll(permissionSet)) {
             permissionService.delete(entities);

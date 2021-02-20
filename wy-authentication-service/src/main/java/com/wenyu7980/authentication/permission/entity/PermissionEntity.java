@@ -19,6 +19,8 @@ public class PermissionEntity {
     private PermissionKey key;
     /** 名称 */
     private String name;
+    /** 资源名称 */
+    private String resource;
     /** 类型 */
     @Enumerated(EnumType.STRING)
     private RequesterType requesterType;
@@ -32,17 +34,19 @@ public class PermissionEntity {
     protected PermissionEntity() {
     }
 
-    public PermissionEntity(String serviceName, String method, String path, String name, RequesterType requesterType,
-      boolean requiredFlag, boolean checkFlag) {
+    public PermissionEntity(String serviceName, String method, String path, String name, String resource,
+      RequesterType requesterType, boolean requiredFlag, boolean checkFlag) {
         this.key = new PermissionKey(serviceName, method, path);
         this.name = name;
+        this.resource = resource;
         this.requesterType = requesterType;
         this.requiredFlag = requiredFlag;
         this.checkFlag = this.requiredFlag && checkFlag;
     }
 
-    public void modify(String name, RequesterType requesterType, boolean required, boolean check) {
+    public void modify(String name, String resource, RequesterType requesterType, boolean required, boolean check) {
         this.name = name;
+        this.resource = resource;
         this.requesterType = requesterType;
         this.requiredFlag = required;
         this.checkFlag = this.requiredFlag && check;
@@ -62,6 +66,10 @@ public class PermissionEntity {
 
     public String getName() {
         return name;
+    }
+
+    public String getResource() {
+        return resource;
     }
 
     public RequesterType getRequesterType() {

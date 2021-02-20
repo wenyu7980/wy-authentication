@@ -66,11 +66,13 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
             AuthRequesterType controllerRequestType = AuthRequesterType.DETERMINE;
             boolean controllerCheck = true;
             boolean controllerRequired = true;
+            String resource = "";
             AuthRequest authRequest = clazz.getAnnotation(AuthRequest.class);
             if (Objects.nonNull(authRequest)) {
                 controllerRequestType = authRequest.requesterType();
                 controllerCheck = authRequest.check();
                 controllerRequired = authRequest.required();
+                resource = authRequest.resource();
             }
             // controller类中所有方法
             for (Method method : clazz.getDeclaredMethods()) {
@@ -100,6 +102,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                     AuthRequest methodRequest = method.getAnnotation(AuthRequest.class);
                     boolean methodRequired = controllerRequired;
                     boolean methodCheck = controllerCheck;
+                    String methodResource = resource;
                     AuthRequesterType methodRequesterType = controllerRequestType;
                     if (Objects.nonNull(methodRequest)) {
                         methodRequired = methodRequest.required();
@@ -107,6 +110,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                         methodRequesterType = methodRequest.requesterType() == AuthRequesterType.DETERMINE ?
                           methodRequesterType :
                           methodRequest.requesterType();
+                        methodResource = authRequest.resource();
                     }
                     String path = handlerPath(methodPath.toString());
                     if (methodRequesterType == AuthRequesterType.DETERMINE) {
@@ -124,7 +128,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                         }
                     }
                     AuthRequestPermission permission = new AuthRequestPermission(methodMethod, path, methodName,
-                      methodRequesterType, methodRequired, methodCheck);
+                      methodResource, methodRequesterType, methodRequired, methodCheck);
                     permissions.add(permission);
                     LOGGER.debug("REST请求:{}", permission);
                 }

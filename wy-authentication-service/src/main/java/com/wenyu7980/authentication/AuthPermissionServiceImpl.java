@@ -23,7 +23,7 @@ public class AuthPermissionServiceImpl implements AuthPermissionService {
     @Override
     public void manipulation(String serviceName, Collection<AuthRequestPermission> permissions) {
         permissionInternalHandler.manipulation(serviceName, permissions.stream().map(
-          p -> new PermissionInternalManipulation(p.getMethod(), p.getPath(), p.getName(),
+          p -> new PermissionInternalManipulation(p.getMethod(), p.getPath(), p.getName(), p.getResource(),
             RequesterType.valueOf(p.getRequesterType().name()), p.isRequired(), p.isCheck()))
           .collect(Collectors.toList()));
     }

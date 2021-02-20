@@ -28,6 +28,7 @@ CREATE TABLE `auth_permission`(
   `method` varchar(45) NOT NULL COMMENT '方法',
   `path` varchar(128) NOT NULL COMMENT '路径',
   `name` varchar(128) NOT NULL COMMENT '接口名',
+  `resource` varchar(128) COMMENT '资源名',
   `requester_type` varchar(45) NOT NULL COMMENT '请求者类型',
   `required_flag` bit(1) NOT NULL DEFAULT 0 COMMENT '是否需要登录',
   `check_flag` bit(1) NOT NULL DEFAULT 0 COMMENT '是否进行校验',

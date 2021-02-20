@@ -15,6 +15,8 @@ public class Permission {
     private String path;
     /** 名称 */
     private String name;
+    /** 资源名 */
+    private String resource;
     /** 请求者类型 */
     private RequesterType requesterType;
     /** 是否校验token */
@@ -52,6 +54,14 @@ public class Permission {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     public RequesterType getRequesterType() {

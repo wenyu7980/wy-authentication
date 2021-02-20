@@ -28,4 +28,10 @@ public @interface AuthRequest {
      * @return
      */
     AuthRequesterType requesterType() default AuthRequesterType.DETERMINE;
+
+    /**
+     * 资源名称
+     * @return
+     */
+    String resource() default "";
 }
