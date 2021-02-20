@@ -1,10 +1,12 @@
 package com.wenyu7980.authentication.permission.entity;
 
 import com.wenyu7980.authentication.api.constant.RequesterType;
+import com.wenyu7980.authentication.role.entity.RoleEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -24,6 +26,8 @@ public class PermissionEntity {
     private Boolean requiredFlag;
     /** 是否进行校验 */
     private Boolean checkFlag;
+    @ManyToMany(mappedBy = "permissions")
+    private Set<RoleEntity> roles;
 
     protected PermissionEntity() {
     }

@@ -1,13 +1,12 @@
 package com.wenyu7980.authentication.user.entity;
 
 import com.wenyu7980.authentication.PasswordUtil;
+import com.wenyu7980.authentication.role.entity.RoleEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -31,6 +30,8 @@ public class UserEntity {
     private String salt;
     /** 有效标志 */
     private Boolean validFlag = true;
+    @ManyToMany(mappedBy = "users")
+    private Set<RoleEntity> roles;
 
     protected UserEntity() {
     }
@@ -66,5 +67,22 @@ public class UserEntity {
 
     public Boolean getValidFlag() {
         return validFlag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserEntity entity = (UserEntity) o;
+        return id.equals(entity.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
