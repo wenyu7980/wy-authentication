@@ -110,7 +110,9 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                         methodRequesterType = methodRequest.requesterType() == AuthRequesterType.DETERMINE ?
                           methodRequesterType :
                           methodRequest.requesterType();
-                        methodResource = authRequest.resource();
+                        if (!Objects.equals(methodRequest.resource(), "")) {
+                            methodResource = methodRequest.resource();
+                        }
                     }
                     String path = handlerPath(methodPath.toString());
                     if (methodRequesterType == AuthRequesterType.DETERMINE) {
