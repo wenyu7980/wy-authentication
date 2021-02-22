@@ -1,6 +1,6 @@
 package com.wenyu7980.authentication.api.service;
 
-import com.wenyu7980.authentication.api.domain.Permission;
+import com.wenyu7980.authentication.api.domain.PermissionInternal;
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +32,5 @@ public interface PermissionInternalService {
      * @return
      */
     @GetMapping("list")
-    List<Permission> getList(@RequestParam(value = "check", required = false) Boolean check);
+    List<PermissionInternal> getList(@RequestParam(value = "check", required = false) Boolean check);
 }

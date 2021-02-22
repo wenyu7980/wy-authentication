@@ -4,7 +4,7 @@ import com.wenyu7980.authentication.api.constant.RequesterType;
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
 import com.wenyu7980.authentication.common.AuthPermissionService;
 import com.wenyu7980.authentication.common.AuthRequestPermission;
-import com.wenyu7980.authentication.permission.rest.internal.handler.PermissionInternalHandler;
+import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

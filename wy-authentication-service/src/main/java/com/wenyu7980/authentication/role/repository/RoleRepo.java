@@ -11,4 +11,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoleRepo extends JpaRepository<RoleEntity, String>, JpaSpecificationExecutor<RoleEntity> {
+    /**
+     * 名字是否存在
+     * @param name
+     * @return
+     */
+    boolean existsByName(String name);
 }

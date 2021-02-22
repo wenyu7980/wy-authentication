@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS `auth_role`;
 DROP TABLE IF EXISTS `auth_user_role`;
 DROP TABLE IF EXISTS `auth_role_permission`;
 DROP TABLE IF EXISTS `auth_matrix_permission`;
-DROP TABLE IF EXISTS `auth_matrix_permission_permission`;
 
 
 -- 用户表
@@ -84,19 +83,12 @@ COMMENT '角色-权限表';
 CREATE TABLE `auth_matrix_permission`(
   `id` varchar(32) NOT NULL COMMENT '矩阵权限id',
   `user_id` varchar(32) NOT NULL COMMENT '用户id',
+  `matrix_id` varchar(32) NOT NULL COMMENT '矩阵权限id',
+  `service_name` varchar(128) NOT NULL COMMENT '服务名',
+  `method` varchar(45) NOT NULL COMMENT '方法',
+  `path` varchar(128) NOT NULL COMMENT '路径',
   `department_id` varchar(32) NOT NULL COMMENT '部门id',
   primary key(`id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '矩阵权限表';
-
--- 矩阵权限-权限表
-CREATE TABLE `auth_matrix_permission_permission`(
-  `matrix_id` varchar(32) NOT NULL COMMENT '矩阵权限id',
-  `service_name` varchar(128) NOT NULL COMMENT '服务名',
-  `method` varchar(45) NOT NULL COMMENT '方法',
-  `path` varchar(128) NOT NULL COMMENT '路径',
-  primary key(`matrix_id`,`service_name`,`method`,`path`)
-)
-ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
-COMMENT '矩阵权限-权限表';

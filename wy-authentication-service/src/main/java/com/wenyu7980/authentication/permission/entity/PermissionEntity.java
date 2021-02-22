@@ -103,7 +103,9 @@ public class PermissionEntity {
 
     @Embeddable
     public static class PermissionKey implements Serializable {
+        /** 方法名 */
         private String method;
+        /** 路径名 */
         private String path;
         /** 应用名称 */
         private String serviceName;

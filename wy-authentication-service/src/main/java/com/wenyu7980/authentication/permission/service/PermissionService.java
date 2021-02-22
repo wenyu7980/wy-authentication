@@ -41,4 +41,13 @@ public interface PermissionService {
      * @param entities
      */
     void delete(Collection<PermissionEntity> entities);
+
+    /**
+     * 查询
+     * @param serviceName
+     * @param method
+     * @param path
+     * @return
+     */
+    PermissionEntity findBYKey(String serviceName, String method, String path);
 }

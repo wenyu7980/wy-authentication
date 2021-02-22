@@ -22,4 +22,11 @@ public interface UserService {
      * @return
      */
     Optional<UserEntity> findOptionalByUsername(String username);
+
+    /**
+     * 查询
+     * @param id
+     * @return
+     */
+    UserEntity findById(String id);
 }

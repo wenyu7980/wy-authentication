@@ -3,6 +3,7 @@ package com.wenyu7980.authentication.permission.service.impl;
 import com.wenyu7980.authentication.permission.entity.PermissionEntity;
 import com.wenyu7980.authentication.permission.repository.PermissionRepo;
 import com.wenyu7980.authentication.permission.service.PermissionService;
+import com.wenyu7980.common.exceptions.code404.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,11 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public void delete(Collection<PermissionEntity> entities) {
         permissionRepo.deleteAll(entities);
+    }
+
+    @Override
+    public PermissionEntity findBYKey(String serviceName, String method, String path) {
+        return permissionRepo.findById(new PermissionEntity.PermissionKey(serviceName, method, path))
+          .orElseThrow(() -> new NotFoundException("权限{0}-{1}-{2}不存在", serviceName, method, path));
     }
 }

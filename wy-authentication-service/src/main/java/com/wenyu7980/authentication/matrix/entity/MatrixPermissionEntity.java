@@ -5,7 +5,6 @@ import com.wenyu7980.authentication.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  *
@@ -23,11 +22,24 @@ public class MatrixPermissionEntity {
     private UserEntity user;
     /** 部门id */
     private String departmentId;
-    @ManyToMany
-    @JoinTable(name = "auth_matrix_permission_permission", joinColumns = {
-      @JoinColumn(name = "matrix_id")
-    }, inverseJoinColumns = {
-      @JoinColumn(name = "service_name"), @JoinColumn(name = "method"), @JoinColumn(name = "path")
-    })
-    private Set<PermissionEntity> permission;
+    /** 权限 */
+    @ManyToOne()
+    @JoinColumns({ @JoinColumn(name = "service_name"), @JoinColumn(name = "method"), @JoinColumn(name = "path") })
+    private PermissionEntity permission;
+
+    public String getId() {
+        return id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public PermissionEntity getPermission() {
+        return permission;
+    }
 }

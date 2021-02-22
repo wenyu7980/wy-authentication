@@ -49,6 +49,56 @@ public class RoleEntity {
     @LastModifiedBy
     private String updatedUserId;
 
+    protected RoleEntity() {
+    }
+
+    public RoleEntity(String name, Set<PermissionEntity> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
+
+    /**
+     * 修改
+     * @param name
+     * @param permissions
+     */
+    public void modify(String name, Set<PermissionEntity> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public Set<PermissionEntity> getPermissions() {
+        return permissions;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public String getCreatedUserId() {
+        return createdUserId;
+    }
+
+    public LocalDateTime getUpdatedDateTime() {
+        return updatedDateTime;
+    }
+
+    public String getUpdatedUserId() {
+        return updatedUserId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -65,4 +115,5 @@ public class RoleEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
