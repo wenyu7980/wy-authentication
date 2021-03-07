@@ -5,8 +5,6 @@ import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
 import com.wenyu7980.authentication.api.service.PermissionInternalService;
 import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalHandler;
 import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalQueryHandler;
-import com.wenyu7980.query.QueryCompare;
-import com.wenyu7980.query.QueryCondition;
 import com.wenyu7980.query.QueryLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +35,7 @@ public class PermissionInternalController implements PermissionInternalService {
 
     @GetMapping("list")
     @Override
-    public List<PermissionInternal> getList(@RequestParam(required = false) Boolean check) {
-        return queryHandler.getList(QueryLogic.and(QueryCondition.of("checkFlag", QueryCompare.EQ, check)));
+    public List<PermissionInternal> getList() {
+        return queryHandler.getList(QueryLogic.and());
     }
 }

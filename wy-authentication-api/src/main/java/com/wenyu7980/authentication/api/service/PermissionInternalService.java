@@ -28,9 +28,8 @@ public interface PermissionInternalService {
 
     /**
      * 查询
-     * @param check
      * @return
      */
     @GetMapping("list")
-    List<PermissionInternal> getList(@RequestParam(value = "check", required = false) Boolean check);
+    List<PermissionInternal> getList();
 }
