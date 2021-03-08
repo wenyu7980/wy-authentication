@@ -129,6 +129,10 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                               MessageFormat.format("路径前缀不符合默认规则，请设置{0}的{1}的AuthRequest", clazz, method));
                         }
                     }
+                    if (methodRequesterType == AuthRequesterType.INTERNAL) {
+                        // internal接口不能被外部调用
+                        continue;
+                    }
                     AuthRequestPermission permission = new AuthRequestPermission(methodMethod, path, methodName,
                       methodResource, methodRequesterType, methodRequired, methodCheck);
                     permissions.add(permission);
@@ -158,7 +162,8 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
     @Override
     public void setImportMetadata(AnnotationMetadata annotationMetadata) {
         StandardAnnotationMetadata metadata = (StandardAnnotationMetadata) annotationMetadata;
-        Map<String, Object> attributes = metadata.getAnnotationAttributes(EnableWYAuthenticationConfiguration.class.getName());
+        Map<String, Object> attributes = metadata
+          .getAnnotationAttributes(EnableWYAuthenticationConfiguration.class.getName());
         this.basePackage = attributes.get("value").toString();
         if ("".equals(basePackage)) {
             this.basePackage = metadata.getIntrospectedClass().getPackage().getName();
