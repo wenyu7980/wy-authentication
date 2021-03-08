@@ -158,7 +158,7 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
     @Override
     public void setImportMetadata(AnnotationMetadata annotationMetadata) {
         StandardAnnotationMetadata metadata = (StandardAnnotationMetadata) annotationMetadata;
-        Map<String, Object> attributes = metadata.getAnnotationAttributes(EnableWYAuthentication.class.getName());
+        Map<String, Object> attributes = metadata.getAnnotationAttributes(EnableWYAuthenticationConfiguration.class.getName());
         this.basePackage = attributes.get("value").toString();
         if ("".equals(basePackage)) {
             this.basePackage = metadata.getIntrospectedClass().getPackage().getName();

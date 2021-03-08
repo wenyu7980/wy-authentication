@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(AuthenticationStarter.class)
-public @interface EnableWYAuthentication {
+public @interface EnableWYAuthenticationConfiguration {
     /**
      * basePackage
      * @return

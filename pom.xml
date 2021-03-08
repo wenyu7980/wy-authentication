@@ -17,6 +17,6 @@
         <module>wy-authentication-api</module>
         <module>wy-authentication-service</module>
         <module>wy-authentication-common</module>
-        <module>wy-authentication-common-feign</module>
+        <module>wy-authentication-starter</module>
     </modules>
 </project>
