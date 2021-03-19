@@ -40,6 +40,10 @@ public class RoleEntity {
       @JoinColumn(name = "service_name"), @JoinColumn(name = "method"), @JoinColumn(name = "path")
     })
     private Set<PermissionEntity> permissions;
+    @OneToMany(mappedBy = "key.role", cascade = CascadeType.ALL)
+    private Set<RolePermissionMatrixEntity> permissionMatrices;
+    @OneToMany(mappedBy = "key.role", cascade = CascadeType.ALL)
+    private Set<RoleResourceMatrixEntity> resourceMatrices;
     @CreatedDate
     private LocalDateTime createdDateTime;
     @CreatedBy
@@ -81,6 +85,14 @@ public class RoleEntity {
 
     public Set<PermissionEntity> getPermissions() {
         return permissions;
+    }
+
+    public Set<RolePermissionMatrixEntity> getPermissionMatrices() {
+        return permissionMatrices;
+    }
+
+    public Set<RoleResourceMatrixEntity> getResourceMatrices() {
+        return resourceMatrices;
     }
 
     public LocalDateTime getCreatedDateTime() {

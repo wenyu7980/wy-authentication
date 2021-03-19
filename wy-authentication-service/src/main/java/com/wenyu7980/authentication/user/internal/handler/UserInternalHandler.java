@@ -1,10 +1,7 @@
 package com.wenyu7980.authentication.user.internal.handler;
 
-import com.wenyu7980.authentication.api.domain.MatrixInternal;
-import com.wenyu7980.authentication.api.domain.PermissionInternal;
 import com.wenyu7980.authentication.api.domain.UserInternalAdd;
-
-import java.util.List;
+import com.wenyu7980.authentication.api.domain.UserPermissionMatrixInternal;
 
 /**
  *
@@ -22,12 +19,6 @@ public interface UserInternalHandler {
      * @param id
      * @return
      */
-    List<PermissionInternal> getPermissions(String id);
+    UserPermissionMatrixInternal getMatrix(String id);
 
-    /**
-     * 查询
-     * @param id
-     * @return
-     */
-    List<MatrixInternal> gerMatrices(String id);
 }

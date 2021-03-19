@@ -2,6 +2,8 @@ package com.wenyu7980.authentication.permission.entity;
 
 import com.wenyu7980.authentication.api.constant.RequesterType;
 import com.wenyu7980.authentication.role.entity.RoleEntity;
+import com.wenyu7980.authentication.role.entity.RolePermissionMatrixEntity;
+import com.wenyu7980.authentication.role.entity.RoleResourceMatrixEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +32,10 @@ public class PermissionEntity {
     private Boolean checkFlag;
     @ManyToMany(mappedBy = "permissions")
     private Set<RoleEntity> roles;
+    @OneToMany(mappedBy = "key.permission", cascade = CascadeType.REMOVE)
+    private Set<RolePermissionMatrixEntity> permissionMatrices;
+    @OneToMany(mappedBy = "key.permission", cascade = CascadeType.REMOVE)
+    private Set<RoleResourceMatrixEntity> resourceMatrices;
 
     protected PermissionEntity() {
     }
@@ -140,12 +146,13 @@ public class PermissionEntity {
                 return false;
             }
             PermissionKey that = (PermissionKey) o;
-            return Objects.equals(method, that.method) && Objects.equals(path, that.path);
+            return Objects.equals(method, that.method) && Objects.equals(path, that.path) && Objects
+              .equals(serviceName, that.serviceName);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(method, path);
+            return Objects.hash(method, path, serviceName);
         }
     }
 }

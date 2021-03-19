@@ -1,15 +1,12 @@
 package com.wenyu7980.authentication.api.service;
 
-import com.wenyu7980.authentication.api.domain.MatrixInternal;
-import com.wenyu7980.authentication.api.domain.PermissionInternal;
 import com.wenyu7980.authentication.api.domain.UserInternalAdd;
+import com.wenyu7980.authentication.api.domain.UserPermissionMatrixInternal;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 /**
  *
@@ -29,14 +26,6 @@ public interface UserInternalService {
      * @param id
      * @return
      */
-    @GetMapping("{id}/permissions")
-    List<PermissionInternal> getPermissions(@PathVariable("id") String id);
-
-    /**
-     * 获取矩阵
-     * @param id
-     * @return
-     */
-    @GetMapping("{id}/matrices")
-    List<MatrixInternal> getMatrices(@PathVariable("id") String id);
+    @GetMapping("{id}/matrix")
+    UserPermissionMatrixInternal getMatrix(@PathVariable("id") String id);
 }

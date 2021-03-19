@@ -1,7 +1,6 @@
 package com.wenyu7980.authentication.user.entity;
 
 import com.wenyu7980.authentication.PasswordUtil;
-import com.wenyu7980.authentication.matrix.entity.MatrixPermissionEntity;
 import com.wenyu7980.authentication.role.entity.RoleEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -33,8 +32,6 @@ public class UserEntity {
     private Boolean validFlag = true;
     @ManyToMany(mappedBy = "users")
     private Set<RoleEntity> roles;
-    @OneToMany(mappedBy = "user")
-    private Set<MatrixPermissionEntity> matrices;
 
     protected UserEntity() {
     }
@@ -74,10 +71,6 @@ public class UserEntity {
 
     public Set<RoleEntity> getRoles() {
         return roles;
-    }
-
-    public Set<MatrixPermissionEntity> getMatrices() {
-        return matrices;
     }
 
     @Override

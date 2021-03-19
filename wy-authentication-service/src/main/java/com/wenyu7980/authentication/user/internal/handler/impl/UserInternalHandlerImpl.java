@@ -1,9 +1,10 @@
 package com.wenyu7980.authentication.user.internal.handler.impl;
 
-import com.wenyu7980.authentication.api.domain.MatrixInternal;
-import com.wenyu7980.authentication.api.domain.PermissionInternal;
+import com.wenyu7980.authentication.api.domain.PermissionMatrixInternal;
+import com.wenyu7980.authentication.api.domain.ResourceMatrixInternal;
 import com.wenyu7980.authentication.api.domain.UserInternalAdd;
-import com.wenyu7980.authentication.permission.convert.PermissionInternalConverter;
+import com.wenyu7980.authentication.api.domain.UserPermissionMatrixInternal;
+import com.wenyu7980.authentication.role.entity.RoleEntity;
 import com.wenyu7980.authentication.user.entity.UserEntity;
 import com.wenyu7980.authentication.user.internal.handler.UserInternalHandler;
 import com.wenyu7980.authentication.user.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,23 +42,26 @@ public class UserInternalHandlerImpl implements UserInternalHandler {
     }
 
     @Override
-    public List<PermissionInternal> getPermissions(String id) {
+    public UserPermissionMatrixInternal getMatrix(String id) {
+        UserPermissionMatrixInternal matrix = new UserPermissionMatrixInternal();
+        List<PermissionMatrixInternal> permissions = new ArrayList<>();
+        List<ResourceMatrixInternal> resources = new ArrayList<>();
         UserEntity entity = userService.findById(id);
-        return entity.getRoles().stream().flatMap(role -> role.getPermissions().stream())
-          .map(PermissionInternalConverter::convert).collect(Collectors.toList());
+        for (RoleEntity role : entity.getRoles()) {
+            // 权限-部门矩阵
+            permissions.addAll(role.getPermissionMatrices().stream().map(
+              p -> new PermissionMatrixInternal(p.getPermission().getMethod(), p.getPermission().getPath(),
+                p.getPermission().getServiceName(), p.getPermission().getResource(), p.getDepartmentId()))
+              .collect(Collectors.toList()));
+            // 资源-权限-部门矩阵
+            resources.addAll(role.getResourceMatrices().stream().map(
+              r -> new ResourceMatrixInternal(r.getPermission().getMethod(), r.getPermission().getPath(),
+                r.getPermission().getServiceName(), r.getDepartmentId(), r.getResourceName(), r.getResourceId()))
+              .collect(Collectors.toList()));
+        }
+        matrix.setPermissions(permissions);
+        matrix.setResources(resources);
+        return matrix;
     }
 
-    @Override
-    public List<MatrixInternal> gerMatrices(String id) {
-        UserEntity entity = userService.findById(id);
-        return entity.getMatrices().stream().map(m -> {
-            MatrixInternal matrix = new MatrixInternal();
-            matrix.setDepartmentId(m.getDepartmentId());
-            matrix.setMethod(m.getPermission().getPath());
-            matrix.setPath(m.getPermission().getPath());
-            matrix.setResource(m.getPermission().getResource());
-            matrix.setServiceName(m.getPermission().getServiceName());
-            return matrix;
-        }).collect(Collectors.toList());
-    }
 }

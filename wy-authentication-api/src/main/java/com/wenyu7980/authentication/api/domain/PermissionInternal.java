@@ -17,7 +17,7 @@ public class PermissionInternal {
     private String name;
     /** 资源名 */
     private String resource;
-    /** 请求者类型 */
+    /** 请求分类 */
     private RequesterType requesterType;
     /** 是否校验token */
     private Boolean required;

@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS `auth_token`;
 DROP TABLE IF EXISTS `auth_role`;
 DROP TABLE IF EXISTS `auth_user_role`;
 DROP TABLE IF EXISTS `auth_role_permission`;
-DROP TABLE IF EXISTS `auth_matrix_permission`;
-
+DROP TABLE IF EXISTS `auth_role_permission_matrix`;
+DROP TABLE IF EXISTS `auth_role_resource_matrix`;
 
 -- 用户表
 CREATE TABLE `auth_user`(
@@ -79,16 +79,29 @@ CREATE TABLE `auth_role_permission`(
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
 COMMENT '角色-权限表';
 
--- 矩阵权限表
-CREATE TABLE `auth_matrix_permission`(
-  `id` varchar(32) NOT NULL COMMENT '矩阵权限id',
-  `user_id` varchar(32) NOT NULL COMMENT '用户id',
-  `matrix_id` varchar(32) NOT NULL COMMENT '矩阵权限id',
+-- 角色-权限-部门矩阵表
+CREATE TABLE `auth_role_permission_matrix`(
+  `role_id` varchar(32) NOT NULL COMMENT '角色id',
   `service_name` varchar(128) NOT NULL COMMENT '服务名',
   `method` varchar(45) NOT NULL COMMENT '方法',
   `path` varchar(128) NOT NULL COMMENT '路径',
   `department_id` varchar(32) NOT NULL COMMENT '部门id',
-  primary key(`id`)
+  primary key(`role_id`,`service_name`,`method`,`path`,`department_id`)
 )
 ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
-COMMENT '矩阵权限表';
+COMMENT '角色-权限-部门矩阵表';
+
+-- 角色-权限-部门矩阵表
+CREATE TABLE `auth_role_resource_matrix`(
+  `role_id` varchar(32) NOT NULL COMMENT '角色id',
+  `service_name` varchar(128) NOT NULL COMMENT '服务名',
+  `method` varchar(45) NOT NULL COMMENT '方法',
+  `path` varchar(128) NOT NULL COMMENT '路径',
+  `department_id` varchar(32) NOT NULL COMMENT '部门id',
+  `resource` varchar(128) NOT NULL COMMENT '资源名',
+  `resource_id` varchar(128) NOT NULL COMMENT '资源id',
+  primary key(`role_id`,`service_name`,`method`,`path`,`department_id`,`resource`,`resource_id`)
+)
+ENGINE=innodb DEFAULT CHARACTER SET utf8mb4
+COMMENT '角色-权限-部门矩阵表';
+
