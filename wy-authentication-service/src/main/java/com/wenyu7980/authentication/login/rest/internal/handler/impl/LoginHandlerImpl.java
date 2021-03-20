@@ -49,7 +49,6 @@ public class LoginHandlerImpl implements LoginHandler {
         TokenEntity token = tokenService.save(new TokenEntity(entity.getId()));
         result.setUserId(entity.getId());
         result.setUsername(entity.getUsername());
-        result.setEmail(entity.getEmail());
         result.setMobile(entity.getMobile());
         result.setToken(token.getToken());
         return result;

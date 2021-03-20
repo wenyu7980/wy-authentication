@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author wenyu
  */
 @FeignClient(name = "wy-authentication", path = "internal/users", contextId = "wy-auth-users")
-public interface UserInternalService {
+public interface UserAuthInternalService {
     /**
      * 创建用户
      * @param user

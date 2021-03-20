@@ -9,8 +9,20 @@ public class UserInternalAdd {
     private String id;
     /** 用户名 */
     private String username;
+    /** 手机号 */
+    private String mobile;
     /** 密码 */
     private String password;
+
+    public UserInternalAdd() {
+    }
+
+    public UserInternalAdd(String id, String username, String mobile, String password) {
+        this.id = id;
+        this.username = username;
+        this.mobile = mobile;
+        this.password = password;
+    }
 
     public String getId() {
         return id;
@@ -26,6 +38,14 @@ public class UserInternalAdd {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {

@@ -22,8 +22,6 @@ public class UserEntity {
     private String username;
     /** 手机号 */
     private String mobile;
-    /** 邮箱 */
-    private String email;
     /** 密码 */
     private String password;
     /** 密码盐 */
@@ -36,11 +34,10 @@ public class UserEntity {
     protected UserEntity() {
     }
 
-    public UserEntity(String id, String username, String mobile, String email, String password, String salt) {
+    public UserEntity(String id, String username, String mobile, String password, String salt) {
         this.id = id;
         this.username = username;
         this.mobile = mobile;
-        this.email = email;
         this.password = PasswordUtil.encry(password, salt);
         this.salt = salt;
     }
@@ -59,10 +56,6 @@ public class UserEntity {
 
     public String getMobile() {
         return mobile;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public Boolean getValidFlag() {

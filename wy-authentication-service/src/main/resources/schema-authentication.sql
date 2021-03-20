@@ -12,7 +12,6 @@ CREATE TABLE `auth_user`(
   `id` varchar(32) NOT NULL COMMENT '用户id',
   `username` varchar(128) NOT NULL COMMENT '用户名',
   `mobile` varchar(45) COMMENT '手机号',
-  `email` varchar(128) COMMENT '邮箱',
   `password` varchar(128) NOT NULL COMMENT '密码',
   `salt` varchar(128) NOT NULL COMMENT '密码盐',
   `valid_flag` bit(1) NOT NULL DEFAULT 0 COMMENT '有效标志',

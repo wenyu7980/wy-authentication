@@ -9,7 +9,6 @@ public class LoginResultInternal {
     private String token;
     private String username;
     private String mobile;
-    private String email;
 
     public String getUserId() {
         return userId;
@@ -41,13 +40,5 @@ public class LoginResultInternal {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

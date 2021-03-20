@@ -37,7 +37,8 @@ public class UserInternalHandlerImpl implements UserInternalHandler {
             throw new ExistedException("用户{0}已存在", user.getUsername());
         }
         String salt = UUID.randomUUID().toString();
-        UserEntity entity = new UserEntity(user.getId(), user.getUsername(), null, null, user.getPassword(), salt);
+        UserEntity entity = new UserEntity(user.getId(), user.getUsername(), user.getMobile(), user.getPassword(),
+          salt);
         userService.save(entity);
     }
 
