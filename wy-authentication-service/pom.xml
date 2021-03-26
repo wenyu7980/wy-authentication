@@ -96,7 +96,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.2</version>
                 <configuration>
-                    <imageName>${docker.address}/${profile.env}/${project.build.finalName}
+                    <imageName>${docker.address}/${docker.project.name}/${profile.env}/${project.build.finalName}
                     </imageName>
                     <forceTags>true</forceTags>
                     <imageTags>
