@@ -79,6 +79,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>authentication</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -89,6 +90,34 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <imageName>${docker.address}/${profile.env}/{project.build.finalName}
+                    </imageName>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <baseImage>openjdk:8-jre</baseImage>
+                    <maintainer>wenyu7980@163.com</maintainer>
+                    <workdir>/work</workdir>
+                    <entryPoint>
+                        ["java","-jar","/work/${project.build.finalName}.jar"]
+                    </entryPoint>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/work</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
