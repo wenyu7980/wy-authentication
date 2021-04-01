@@ -1,8 +1,8 @@
-package com.wenyu7980.authentication.role.admin.handler.impl;
+package com.wenyu7980.authentication.role.management.handler.impl;
 
 import com.wenyu7980.authentication.permission.service.PermissionService;
-import com.wenyu7980.authentication.role.admin.domain.RoleAdminManipulation;
-import com.wenyu7980.authentication.role.admin.handler.RoleAdminHandler;
+import com.wenyu7980.authentication.role.management.domain.RoleManagementManipulation;
+import com.wenyu7980.authentication.role.management.handler.RoleManagementHandler;
 import com.wenyu7980.authentication.role.convert.RoleConverter;
 import com.wenyu7980.authentication.role.domain.Role;
 import com.wenyu7980.authentication.role.entity.RoleEntity;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @author wenyu
  */
 @Component
-public class RoleAdminHandlerImpl implements RoleAdminHandler {
+public class RoleManagementHandlerImpl implements RoleManagementHandler {
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -29,7 +29,7 @@ public class RoleAdminHandlerImpl implements RoleAdminHandler {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-    public Role add(RoleAdminManipulation role) {
+    public Role add(RoleManagementManipulation role) {
         if (roleService.existsByName(role.getName())) {
             throw new ExistedException("角色{0}已存在");
         }
@@ -41,7 +41,7 @@ public class RoleAdminHandlerImpl implements RoleAdminHandler {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
-    public Role modify(String id, RoleAdminManipulation role) {
+    public Role modify(String id, RoleManagementManipulation role) {
         RoleEntity entity = roleService.findById(id);
         if (!Objects.equals(entity.getName(), role.getName()) && roleService.existsByName(role.getName())) {
             throw new ExistedException("角色{0}已存在");

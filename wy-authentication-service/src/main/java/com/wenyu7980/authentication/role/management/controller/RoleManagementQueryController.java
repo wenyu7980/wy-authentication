@@ -1,6 +1,6 @@
-package com.wenyu7980.authentication.role.admin.controller;
+package com.wenyu7980.authentication.role.management.controller;
 
-import com.wenyu7980.authentication.role.admin.domain.RoleAdminListDetail;
+import com.wenyu7980.authentication.role.management.domain.RoleManagementListDetail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +16,12 @@ import java.util.List;
  */
 @Api(tags = "角色管理(管理端)")
 @RestController
-@RequestMapping("admin/roles")
-public class RoleAdminQueryController {
+@RequestMapping("management/roles")
+public class RoleManagementQueryController {
     @ApiOperation("分页查询")
     @GetMapping()
-    public List<RoleAdminListDetail> getPage() {
-        List<RoleAdminListDetail> details = new ArrayList<>();
+    public List<RoleManagementListDetail> getPage() {
+        List<RoleManagementListDetail> details = new ArrayList<>();
         return details;
     }
 }

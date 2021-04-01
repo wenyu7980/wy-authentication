@@ -1,4 +1,4 @@
-package com.wenyu7980.authentication.role.admin.domain;
+package com.wenyu7980.authentication.role.management.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * @author wenyu
  */
-public class RoleAdminManipulation {
+public class RoleManagementManipulation {
     @ApiModelProperty(value = "名称", required = true)
     @NotEmpty
     private String name;
