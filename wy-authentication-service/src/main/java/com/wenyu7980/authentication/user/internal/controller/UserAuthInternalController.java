@@ -4,15 +4,15 @@ import com.wenyu7980.authentication.api.domain.UserInternalAdd;
 import com.wenyu7980.authentication.api.domain.UserPermissionMatrixInternal;
 import com.wenyu7980.authentication.api.service.UserAuthInternalService;
 import com.wenyu7980.authentication.user.internal.handler.UserInternalHandler;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
  * @author wenyu
  */
-@Api(tags = "登录用户")
+@ApiIgnore
 @RestController
 @RequestMapping("internal/users")
 public class UserAuthInternalController implements UserAuthInternalService {

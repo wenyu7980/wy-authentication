@@ -5,12 +5,10 @@ package com.wenyu7980.authentication.common;
  * @author wenyu
  */
 public enum AuthRequesterType {
-    /**
-     * 根据path断定,internal,admin,client,common
-     */
+    /** 根据path断定,internal,management,client,common */
     DETERMINE,
     INTERNAL,
-    ADMIN,
+    MANAGEMENT,
     CLIENT,
     COMMON;
 }

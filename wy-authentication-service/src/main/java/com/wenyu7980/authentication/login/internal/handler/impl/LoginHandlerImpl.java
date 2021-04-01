@@ -1,9 +1,9 @@
-package com.wenyu7980.authentication.login.rest.internal.handler.impl;
+package com.wenyu7980.authentication.login.internal.handler.impl;
 
 import com.wenyu7980.authentication.api.domain.LoginInternal;
 import com.wenyu7980.authentication.api.domain.LoginResultInternal;
 import com.wenyu7980.authentication.login.entity.TokenEntity;
-import com.wenyu7980.authentication.login.rest.internal.handler.LoginHandler;
+import com.wenyu7980.authentication.login.internal.handler.LoginHandler;
 import com.wenyu7980.authentication.login.service.TokenService;
 import com.wenyu7980.authentication.user.entity.UserEntity;
 import com.wenyu7980.authentication.user.service.UserService;

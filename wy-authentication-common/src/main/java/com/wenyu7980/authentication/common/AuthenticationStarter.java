@@ -116,8 +116,8 @@ public class AuthenticationStarter implements CommandLineRunner, ImportAware {
                     }
                     String path = handlerPath(methodPath.toString());
                     if (methodRequesterType == AuthRequesterType.DETERMINE) {
-                        if (path.startsWith("/admin/")) {
-                            methodRequesterType = AuthRequesterType.ADMIN;
+                        if (path.startsWith("/management/")) {
+                            methodRequesterType = AuthRequesterType.MANAGEMENT;
                         } else if (path.startsWith("/internal/")) {
                             methodRequesterType = AuthRequesterType.INTERNAL;
                         } else if (path.startsWith("/client/")) {
