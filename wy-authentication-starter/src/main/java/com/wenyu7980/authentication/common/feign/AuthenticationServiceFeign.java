@@ -2,7 +2,6 @@ package com.wenyu7980.authentication.common.feign;
 
 import com.wenyu7980.authentication.api.constant.RequesterType;
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
-import com.wenyu7980.authentication.api.service.PermissionInternalService;
 import com.wenyu7980.authentication.common.AuthPermissionService;
 import com.wenyu7980.authentication.common.AuthRequestPermission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class AuthenticationServiceFeign implements AuthPermissionService {
     @Autowired
-    private PermissionInternalService internalService;
+    private PermissionRestService internalService;
 
     @Override
     public void manipulation(String serviceName, Collection<AuthRequestPermission> permissions) {

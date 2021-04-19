@@ -12,3 +12,6 @@ spring:
       - classpath:schema-authentication.sql
     data:
       - classpath:data-authentication.sql
+feign:
+  hystrix:
+    enabled: true
