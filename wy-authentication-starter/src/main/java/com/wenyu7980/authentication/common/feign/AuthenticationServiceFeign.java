@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class AuthenticationServiceFeign implements AuthPermissionService {
     @Autowired
-    private PermissionRestService internalService;
+    private PermissionStarterService internalService;
 
     @Override
     public void manipulation(String serviceName, Collection<AuthRequestPermission> permissions) {

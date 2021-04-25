@@ -10,12 +10,12 @@ import java.util.List;
  *
  * @author wenyu
  */
-@FeignClient(name = "wy-authentication", path = "internal/permissions", contextId = "wy-auth-permissions")
+@FeignClient(name = "wy-authentication", path = "internal", contextId = "wy-auth-permissions")
 public interface PermissionInternalService {
     /**
      * 查询
      * @return
      */
-    @GetMapping("list")
+    @GetMapping("permissions/list")
     List<PermissionInternal> getList();
 }

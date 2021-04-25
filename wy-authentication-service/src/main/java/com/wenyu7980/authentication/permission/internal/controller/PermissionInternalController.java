@@ -3,7 +3,7 @@ package com.wenyu7980.authentication.permission.internal.controller;
 import com.wenyu7980.authentication.api.domain.PermissionInternal;
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
 import com.wenyu7980.authentication.api.service.PermissionInternalService;
-import com.wenyu7980.authentication.api.service.PermissionRestInternalService;
+import com.wenyu7980.authentication.api.service.PermissionStarterInternalService;
 import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalHandler;
 import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalQueryHandler;
 import com.wenyu7980.query.QueryLogic;
@@ -21,7 +21,7 @@ import java.util.Set;
 @ApiIgnore
 @RequestMapping("internal/permissions")
 @RestController
-public class PermissionInternalController implements PermissionInternalService, PermissionRestInternalService {
+public class PermissionInternalController implements PermissionInternalService, PermissionStarterInternalService {
     @Autowired
     private PermissionInternalHandler internalHandler;
     @Autowired

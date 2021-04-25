@@ -10,14 +10,16 @@ import java.util.Set;
 /**
  *
  * @author wenyu
+ * name: wy-authentication
+ * path: internal
  */
-public interface PermissionRestInternalService {
+public interface PermissionStarterInternalService {
     /**
      * 维护
      * @param serviceName
      * @param permissions
      */
-    @PutMapping
+    @PutMapping("permissions")
     void manipulation(@RequestParam("serviceName") String serviceName,
       @RequestBody Set<PermissionInternalManipulation> permissions);
 }

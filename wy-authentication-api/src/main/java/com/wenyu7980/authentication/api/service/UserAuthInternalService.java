@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *
  * @author wenyu
+ * name: wy-authentication
+ * path: internal
  */
-@FeignClient(name = "wy-authentication", path = "internal/users", contextId = "wy-auth-users")
+@FeignClient(name = "wy-authentication", path = "internal", contextId = "wy-auth-users")
 public interface UserAuthInternalService {
     /**
      * 创建用户
@@ -26,6 +28,6 @@ public interface UserAuthInternalService {
      * @param id
      * @return
      */
-    @GetMapping("{id}/matrix")
+    @GetMapping("internal/users/{id}/matrix")
     UserPermissionMatrixInternal getMatrix(@PathVariable("id") String id);
 }
