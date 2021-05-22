@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.wenyu7980.auth.data.AuthConfiguration,\
+  com.wenyu7980.auth.context.ContextConfig,\
+  com.wenyu7980.auth.audit.AuditConfiguration

@@ -1,13 +1,9 @@
-package com.wenyu7980.authentication;
+package com.wenyu7980.auth.request;
 
 import com.wenyu7980.authentication.api.constant.RequesterType;
 import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
-import com.wenyu7980.authentication.permission.internal.handler.PermissionInternalHandler;
-import com.wenyu7980.auth.request.AuthPermissionService;
-import com.wenyu7980.auth.request.AuthRequestPermission;
+import com.wenyu7980.auth.request.feign.PermissionStarterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -16,17 +12,15 @@ import java.util.stream.Collectors;
  *
  * @author wenyu
  */
-@Service
-@Primary
-public class AuthPermissionServiceImpl implements AuthPermissionService {
+public class AuthenticationServiceFeign implements AuthPermissionService {
     @Autowired
-    private PermissionInternalHandler permissionInternalHandler;
+    private PermissionStarterService permissionStarterService;
 
     @Override
     public void manipulation(String serviceName, Collection<AuthRequestPermission> permissions) {
-        permissionInternalHandler.manipulation(serviceName, permissions.stream().map(
+        permissionStarterService.manipulation(serviceName, permissions.stream().map(
           p -> new PermissionInternalManipulation(p.getMethod(), p.getPath(), p.getName(), p.getResource(),
             RequesterType.valueOf(p.getRequesterType().name()), p.isRequired(), p.isCheck()))
-          .collect(Collectors.toList()));
+          .collect(Collectors.toSet()));
     }
 }
