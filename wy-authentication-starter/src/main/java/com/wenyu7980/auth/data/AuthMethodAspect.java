@@ -20,7 +20,6 @@ import java.util.Set;
 
 @Aspect
 @Component
-@EnableAspectJAutoProxy
 public class AuthMethodAspect {
     @Pointcut("@annotation(com.wenyu7980.auth.data.annotation.AuthMethod)")
     public void authMethod() {

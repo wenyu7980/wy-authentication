@@ -1,6 +1,6 @@
 package com.wenyu7980.authentication.permission.convert;
 
-import com.wenyu7980.authentication.api.domain.PermissionInternal;
+import com.wenyu7980.authentication.api.domain.Permission;
 import com.wenyu7980.authentication.permission.entity.PermissionEntity;
 
 /**
@@ -11,7 +11,7 @@ public class PermissionInternalConverter {
     private PermissionInternalConverter() {
     }
 
-    public static void convert(PermissionEntity entity, PermissionInternal permission) {
+    public static void convert(PermissionEntity entity, Permission permission) {
         permission.setServiceName(entity.getServiceName());
         permission.setCheck(entity.getCheckFlag());
         permission.setMethod(entity.getMethod());
@@ -22,8 +22,8 @@ public class PermissionInternalConverter {
         permission.setResource(entity.getResource());
     }
 
-    public static PermissionInternal convert(PermissionEntity entity) {
-        PermissionInternal permission = new PermissionInternal();
+    public static Permission convert(PermissionEntity entity) {
+        Permission permission = new Permission();
         convert(entity, permission);
         return permission;
     }

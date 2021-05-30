@@ -4,7 +4,7 @@ package com.wenyu7980.authentication.api.domain;
  *
  * @author wenyu
  */
-public class UserInternalAdd {
+public class AuthUserAdd {
     /** 用户id */
     private String id;
     /** 用户名 */
@@ -14,10 +14,10 @@ public class UserInternalAdd {
     /** 密码 */
     private String password;
 
-    public UserInternalAdd() {
+    public AuthUserAdd() {
     }
 
-    public UserInternalAdd(String id, String username, String mobile, String password) {
+    public AuthUserAdd(String id, String username, String mobile, String password) {
         this.id = id;
         this.username = username;
         this.mobile = mobile;

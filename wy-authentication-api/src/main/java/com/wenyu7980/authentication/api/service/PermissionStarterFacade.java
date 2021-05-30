@@ -1,6 +1,6 @@
 package com.wenyu7980.authentication.api.service;
 
-import com.wenyu7980.authentication.api.domain.PermissionInternalManipulation;
+import com.wenyu7980.authentication.api.domain.PermissionManipulation;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,9 +11,8 @@ import java.util.Set;
  *
  * @author wenyu
  * name: wy-authentication
- * path: internal
  */
-public interface PermissionStarterInternalService {
+public interface PermissionStarterFacade {
     /**
      * 维护
      * @param serviceName
@@ -21,5 +20,5 @@ public interface PermissionStarterInternalService {
      */
     @PutMapping("permissions")
     void manipulation(@RequestParam("serviceName") String serviceName,
-      @RequestBody Set<PermissionInternalManipulation> permissions);
+      @RequestBody Set<PermissionManipulation> permissions);
 }

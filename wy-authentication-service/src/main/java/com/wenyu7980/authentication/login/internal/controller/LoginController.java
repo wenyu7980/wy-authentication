@@ -1,8 +1,8 @@
 package com.wenyu7980.authentication.login.internal.controller;
 
-import com.wenyu7980.authentication.api.domain.LoginInternal;
-import com.wenyu7980.authentication.api.domain.LoginResultInternal;
-import com.wenyu7980.authentication.api.service.LoginInternalService;
+import com.wenyu7980.authentication.api.domain.AuthLogin;
+import com.wenyu7980.authentication.api.domain.AuthLoginResult;
+import com.wenyu7980.authentication.api.service.LoginFacade;
 import com.wenyu7980.authentication.login.internal.handler.LoginHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +17,14 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @ApiIgnore
 @RestController
-@RequestMapping("internal")
-public class LoginController implements LoginInternalService {
+@RequestMapping()
+public class LoginController implements LoginFacade {
     @Autowired
     private LoginHandler loginHandler;
 
     @Override
     @PostMapping("login")
-    public LoginResultInternal login(@RequestBody LoginInternal login) {
+    public AuthLoginResult login(@RequestBody AuthLogin login) {
         return loginHandler.login(login);
     }
 

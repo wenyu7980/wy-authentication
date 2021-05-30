@@ -9,19 +9,19 @@ import java.util.Set;
  *
  * @author wenyu
  */
-public class AuthResourceDepartmentPair {
+public class AuthResourcePair {
     /** 资源id */
     private Set<String> resources;
     /** 部门id */
     private Set<String> departments;
 
-    public AuthResourceDepartmentPair(String resource, Collection<String> departments) {
+    public AuthResourcePair(String resourceId, Collection<String> departments) {
         this.resources = new HashSet<>();
-        this.resources.add(resource);
+        this.resources.add(resourceId);
         this.departments = new HashSet<>(departments);
     }
 
-    public void addResource(String resourceId) {
+    public void addResourceId(String resourceId) {
         this.resources.add(resourceId);
     }
 

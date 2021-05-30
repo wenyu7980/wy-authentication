@@ -1,14 +1,22 @@
 package com.wenyu7980.authentication.api.domain;
 
+import java.util.Set;
+
 /**
  *
  * @author wenyu
  */
-public class LoginResultInternal {
+public class AuthLoginResult {
+    /** 用户id */
     private String userId;
+    /** token */
     private String token;
+    /** 用户名 */
     private String username;
+    /** 手机号 */
     private String mobile;
+    /** 权限 */
+    private Set<RolePermission> permissions;
 
     public String getUserId() {
         return userId;
@@ -40,5 +48,13 @@ public class LoginResultInternal {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public Set<RolePermission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<RolePermission> permissions) {
+        this.permissions = permissions;
     }
 }

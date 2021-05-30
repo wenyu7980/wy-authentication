@@ -6,7 +6,7 @@ import com.wenyu7980.authentication.api.constant.RequesterType;
  *
  * @author wenyu
  */
-public class PermissionInternalManipulation {
+public class PermissionManipulation {
     private String method;
     private String path;
     private String name;
@@ -15,10 +15,10 @@ public class PermissionInternalManipulation {
     private Boolean required;
     private Boolean check;
 
-    public PermissionInternalManipulation() {
+    public PermissionManipulation() {
     }
 
-    public PermissionInternalManipulation(String method, String path, String name, String resource,
+    public PermissionManipulation(String method, String path, String name, String resource,
       RequesterType requesterType, boolean required, boolean check) {
         this.method = method;
         this.path = path;

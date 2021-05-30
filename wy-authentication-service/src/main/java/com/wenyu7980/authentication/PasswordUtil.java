@@ -16,7 +16,7 @@ public class PasswordUtil {
      * @param salt
      * @return
      */
-    public static String encry(String password, String salt) {
+    public static String encrypt(String password, String salt) {
         return DigestUtils.md5DigestAsHex((password + salt).getBytes());
     }
 }

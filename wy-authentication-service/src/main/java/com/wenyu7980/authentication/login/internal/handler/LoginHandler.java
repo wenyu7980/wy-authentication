@@ -1,7 +1,7 @@
 package com.wenyu7980.authentication.login.internal.handler;
 
-import com.wenyu7980.authentication.api.domain.LoginInternal;
-import com.wenyu7980.authentication.api.domain.LoginResultInternal;
+import com.wenyu7980.authentication.api.domain.AuthLogin;
+import com.wenyu7980.authentication.api.domain.AuthLoginResult;
 
 /**
  *
@@ -13,5 +13,5 @@ public interface LoginHandler {
      * @param login
      * @return
      */
-    LoginResultInternal login(LoginInternal login);
+    AuthLoginResult login(AuthLogin login);
 }

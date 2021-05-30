@@ -1,6 +1,5 @@
 package com.wenyu7980.authentication.role.entity;
 
-import com.wenyu7980.authentication.permission.entity.PermissionEntity;
 import com.wenyu7980.authentication.user.entity.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
@@ -11,8 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -28,22 +26,14 @@ public class RoleEntity {
     private String id;
     /** 角色名称 */
     private String name;
+    /** 用户 */
     @ManyToMany()
     @JoinTable(name = "auth_user_role", joinColumns = {
       @JoinColumn(name = "role_id")
     }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private Set<UserEntity> users;
-    @ManyToMany
-    @JoinTable(name = "auth_role_permission", joinColumns = {
-      @JoinColumn(name = "role_id")
-    }, inverseJoinColumns = {
-      @JoinColumn(name = "service_name"), @JoinColumn(name = "method"), @JoinColumn(name = "path")
-    })
-    private Set<PermissionEntity> permissions;
-    @OneToMany(mappedBy = "key.role", cascade = CascadeType.ALL)
-    private Set<RolePermissionMatrixEntity> permissionMatrices;
-    @OneToMany(mappedBy = "key.role", cascade = CascadeType.ALL)
-    private Set<RoleResourceMatrixEntity> resourceMatrices;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<RolePermissionEntity> permissions;
     @CreatedDate
     private LocalDateTime createdDateTime;
     @CreatedBy
@@ -56,9 +46,9 @@ public class RoleEntity {
     protected RoleEntity() {
     }
 
-    public RoleEntity(String name, Set<PermissionEntity> permissions) {
+    public RoleEntity(String name, Collection<RolePermissionEntity> permissions) {
         this.name = name;
-        this.permissions = permissions;
+        this.permissions = new ArrayList<>(permissions);
     }
 
     /**
@@ -66,9 +56,10 @@ public class RoleEntity {
      * @param name
      * @param permissions
      */
-    public void modify(String name, Set<PermissionEntity> permissions) {
+    public void modify(String name, Collection<RolePermissionEntity> permissions) {
         this.name = name;
-        this.permissions = permissions;
+        this.permissions.clear();
+        this.permissions.addAll(permissions);
     }
 
     public String getId() {
@@ -83,16 +74,8 @@ public class RoleEntity {
         return users;
     }
 
-    public Set<PermissionEntity> getPermissions() {
+    public List<RolePermissionEntity> getPermissions() {
         return permissions;
-    }
-
-    public Set<RolePermissionMatrixEntity> getPermissionMatrices() {
-        return permissionMatrices;
-    }
-
-    public Set<RoleResourceMatrixEntity> getResourceMatrices() {
-        return resourceMatrices;
     }
 
     public LocalDateTime getCreatedDateTime() {

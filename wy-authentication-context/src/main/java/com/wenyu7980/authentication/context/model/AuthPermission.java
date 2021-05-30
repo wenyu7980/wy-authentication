@@ -7,6 +7,7 @@ import java.util.Objects;
  * @author wenyu
  */
 public class AuthPermission {
+
     /** 服务名 */
     private String serviceName;
     /** 方法 */
@@ -17,10 +18,14 @@ public class AuthPermission {
     private AuthPermission() {
     }
 
-    public AuthPermission(String serviceName, String method, String path) {
+    private AuthPermission(String serviceName, String method, String path) {
         this.serviceName = serviceName;
         this.method = method;
         this.path = path;
+    }
+
+    public static AuthPermission of(String serviceName, String method, String path) {
+        return new AuthPermission(serviceName, method, path);
     }
 
     public String getServiceName() {

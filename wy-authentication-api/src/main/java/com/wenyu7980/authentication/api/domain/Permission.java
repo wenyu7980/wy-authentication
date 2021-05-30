@@ -6,7 +6,7 @@ import com.wenyu7980.authentication.api.constant.RequesterType;
  *
  * @author wenyu
  */
-public class PermissionInternal {
+public class Permission {
     /** 服务名 */
     private String serviceName;
     /** 方法 */
@@ -87,4 +87,5 @@ public class PermissionInternal {
     public void setCheck(Boolean check) {
         this.check = check;
     }
+    
 }

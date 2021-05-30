@@ -10,14 +10,18 @@ import java.util.stream.Collectors;
 public class ContextInfo {
     /** 用户id */
     private String userId;
+    /** 部门id */
+    private String departmentId;
     /** 请求 */
     private Request request;
     /** matrix权限 */
-    private Set<AuthenticationMatrix> matrices = new HashSet<>();
+    private Collection<AuthenticationRolePermission> permissions = new ArrayList<>();
+    /** code */
+    transient private Map<String, Set<String>> codes = new HashMap<>();
     /** 权限-部门 */
     transient private Map<AuthPermission, Set<String>> permissionDepartments = new HashMap<>();
     /** 权限-资源-部门 */
-    transient private Map<AuthPermission, Map<String, List<AuthResourceDepartmentPair>>> permissionResourceDepartments = new HashMap<>();
+    transient private Map<AuthPermission, Map<String, List<AuthResourcePair>>> resourceDepartments = new HashMap<>();
 
     public ContextInfo() {
     }
@@ -26,10 +30,11 @@ public class ContextInfo {
         this.userId = userId;
     }
 
-    public ContextInfo(String userId, Set<AuthenticationMatrix> matrices, Request request) {
+    public ContextInfo(String userId, String departmentId, Collection<AuthenticationRolePermission> permissions,
+      Request request) {
         this.userId = userId;
         this.request = request;
-        this.setMatrices(matrices);
+        this.setPermissions(permissions);
     }
 
     public Set<String> getDepartments() {
@@ -37,9 +42,9 @@ public class ContextInfo {
     }
 
     public Set<String> getDepartments(String code, String value) {
-        return Collections.unmodifiableSet(this.getPermissionResourceDepartments().get(this.request).get(code).stream()
-          .filter(a -> a.getResources().contains(value)).flatMap(a -> a.getDepartments().stream())
-          .collect(Collectors.toSet()));
+        return Collections.unmodifiableSet(
+          this.resourceDepartments.get(this.request).get(code).stream().filter(a -> a.getResources().contains(value))
+            .flatMap(a -> a.getDepartments().stream()).collect(Collectors.toSet()));
     }
 
     public String getUserId() {
@@ -50,47 +55,69 @@ public class ContextInfo {
         return request;
     }
 
-    public Set<AuthenticationMatrix> getMatrices() {
-        return matrices;
+    public Collection<AuthenticationRolePermission> getPermissions() {
+        return permissions;
     }
 
     public Map<AuthPermission, Set<String>> getPermissionDepartments() {
         return permissionDepartments;
     }
 
-    public Map<AuthPermission, Map<String, List<AuthResourceDepartmentPair>>> getPermissionResourceDepartments() {
-        return permissionResourceDepartments;
-    }
-
-    private void setMatrices(Set<AuthenticationMatrix> matrices) {
-        this.matrices = matrices;
-        OUT:
-        for (AuthenticationMatrix matrix : matrices) {
-            if (matrix.getAuthResource() == null) {
-                if (!this.permissionDepartments.containsKey(matrix.getPermission())) {
-                    this.permissionDepartments.put(matrix.getPermission(), new HashSet<>());
+    private void setPermissions(Collection<AuthenticationRolePermission> permissions) {
+        this.permissions = permissions;
+        // 接口-resource-resourceId-departments
+        final Map<AuthPermission, Map<String, Map<String, Set<String>>>> resources = new HashMap<>();
+        for (AuthenticationRolePermission rolePermission : permissions) {
+            AuthPermission permission = AuthPermission
+              .of(rolePermission.getServiceName(), rolePermission.getMethod(), rolePermission.getPath());
+            if (rolePermission.getResource() == null) {
+                if (!this.permissionDepartments.containsKey(permission)) {
+                    this.permissionDepartments.put(permission, new HashSet<>());
                 }
-                this.permissionDepartments.get(matrix.getPermission()).addAll(matrix.getDepartments());
+                this.permissionDepartments.get(permission).add(rolePermission.getDepartmentId());
             } else {
-                if (!this.permissionResourceDepartments.containsKey(matrix.getPermission())) {
-                    this.permissionResourceDepartments.put(matrix.getPermission(), new HashMap<>());
+                if (!resources.containsKey(permission)) {
+                    resources.put(permission, new HashMap<>());
                 }
-                if (!this.permissionResourceDepartments.get(matrix.getPermission())
-                  .containsKey(matrix.getAuthResource().getType())) {
-                    this.permissionResourceDepartments.get(matrix.getPermission())
-                      .put(matrix.getAuthResource().getType(), new ArrayList<>());
+                if (!resources.get(permission).containsKey(rolePermission.getResource())) {
+                    resources.get(permission).put(rolePermission.getResource(), new HashMap<>());
                 }
-                List<AuthResourceDepartmentPair> authResourceDepartmentPairs = this.permissionResourceDepartments
-                  .get(matrix.getPermission()).get(matrix.getAuthResource().getType());
-                for (AuthResourceDepartmentPair pair : authResourceDepartmentPairs) {
-                    if (pair.getDepartments().containsAll(matrix.getDepartments()) && matrix.getDepartments()
-                      .containsAll(pair.getDepartments())) {
-                        pair.addResource(matrix.getAuthResource().getId());
-                        continue OUT;
+                if (!resources.get(permission).get(rolePermission.getResource())
+                  .containsKey(rolePermission.getResourceId())) {
+                    resources.get(permission).get(rolePermission.getResource())
+                      .put(rolePermission.getResourceId(), new HashSet<>());
+                }
+                resources.get(permission).get(rolePermission.getResource()).get(rolePermission.getResourceId())
+                  .add(rolePermission.getDepartmentId());
+            }
+            if (rolePermission.getCode() != null) {
+                if (!this.codes.containsKey(rolePermission.getCode())) {
+                    this.codes.put(rolePermission.getCode(), new HashSet<>());
+                }
+                this.codes.get(rolePermission.getCode()).add(rolePermission.getDepartmentId());
+            }
+        }
+        for (Map.Entry<AuthPermission, Map<String, Map<String, Set<String>>>> permission : resources.entrySet()) {
+            if (!this.resourceDepartments.containsKey(permission.getKey())) {
+                this.resourceDepartments.put(permission.getKey(), new HashMap<>());
+            }
+            RESOURCE:
+            for (Map.Entry<String, Map<String, Set<String>>> resource : permission.getValue().entrySet()) {
+                if (!this.resourceDepartments.get(permission.getKey()).containsKey(resource.getKey())) {
+                    this.resourceDepartments.get(permission.getKey()).put(resource.getKey(), new ArrayList<>());
+                }
+                for (Map.Entry<String, Set<String>> department : resource.getValue().entrySet()) {
+                    for (AuthResourcePair pair : this.resourceDepartments.get(permission.getKey())
+                      .get(resource.getKey())) {
+                        if (department.getValue().containsAll(pair.getDepartments()) && pair.getDepartments()
+                          .containsAll(department.getValue())) {
+                            pair.addResourceId(department.getKey());
+                            continue RESOURCE;
+                        }
                     }
+                    this.resourceDepartments.get(permission.getKey()).get(resource.getKey())
+                      .add(new AuthResourcePair(department.getKey(), department.getValue()));
                 }
-                authResourceDepartmentPairs
-                  .add(new AuthResourceDepartmentPair(matrix.getAuthResource().getId(), matrix.getDepartments()));
             }
         }
     }

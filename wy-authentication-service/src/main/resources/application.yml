@@ -9,9 +9,9 @@ spring:
       hibernate.ejb.identifier_generator_strategy_provider: com.wenyu7980.data.jpa.generator.IdGeneratorStrategyProvider
   datasource:
     schema:
-      - classpath:schema-authentication.sql
+      - classpath:sql/schema-authentication.sql
     data:
-      - classpath:data-authentication.sql
+      - classpath:sql/data-authentication.sql
 feign:
   hystrix:
     enabled: true

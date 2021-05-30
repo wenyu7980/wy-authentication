@@ -38,12 +38,12 @@ public class UserEntity {
         this.id = id;
         this.username = username;
         this.mobile = mobile;
-        this.password = PasswordUtil.encry(password, salt);
+        this.password = PasswordUtil.encrypt(password, salt);
         this.salt = salt;
     }
 
     public boolean checkPassword(String password) {
-        return Objects.equals(PasswordUtil.encry(password, salt), this.password);
+        return Objects.equals(PasswordUtil.encrypt(password, salt), this.password);
     }
 
     public String getId() {

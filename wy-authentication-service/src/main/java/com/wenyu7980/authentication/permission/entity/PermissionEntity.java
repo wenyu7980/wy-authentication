@@ -1,17 +1,14 @@
 package com.wenyu7980.authentication.permission.entity;
 
 import com.wenyu7980.authentication.api.constant.RequesterType;
-import com.wenyu7980.authentication.role.entity.RoleEntity;
-import com.wenyu7980.authentication.role.entity.RolePermissionMatrixEntity;
-import com.wenyu7980.authentication.role.entity.RoleResourceMatrixEntity;
+import com.wenyu7980.authentication.role.entity.RolePermissionEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
- *
+ * 接口权限
  * @author wenyu
  */
 @Table(name = "auth_permission")
@@ -30,12 +27,8 @@ public class PermissionEntity {
     private Boolean requiredFlag;
     /** 是否进行校验 */
     private Boolean checkFlag;
-    @ManyToMany(mappedBy = "permissions")
-    private Set<RoleEntity> roles;
-    @OneToMany(mappedBy = "key.permission", cascade = CascadeType.REMOVE)
-    private Set<RolePermissionMatrixEntity> permissionMatrices;
-    @OneToMany(mappedBy = "key.permission", cascade = CascadeType.REMOVE)
-    private Set<RoleResourceMatrixEntity> resourceMatrices;
+    @OneToMany(mappedBy = "permission")
+    private List<RolePermissionEntity> permissions;
 
     protected PermissionEntity() {
     }
@@ -67,7 +60,7 @@ public class PermissionEntity {
     }
 
     public String getServiceName() {
-        return this.key.serviceName;
+        return this.key.getServiceName();
     }
 
     public String getName() {
@@ -107,54 +100,6 @@ public class PermissionEntity {
         return Objects.hash(key);
     }
 
-    @Embeddable
-    public static class PermissionKey implements Serializable {
-        /** 方法名 */
-        private String method;
-        /** 路径名 */
-        private String path;
-        /** 应用名称 */
-        private String serviceName;
-
-        protected PermissionKey() {
-        }
-
-        public PermissionKey(String serviceName, String method, String path) {
-            this.serviceName = serviceName;
-            this.method = method;
-            this.path = path;
-        }
-
-        public String getServiceName() {
-            return serviceName;
-        }
-
-        public String getMethod() {
-            return method;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            PermissionKey that = (PermissionKey) o;
-            return Objects.equals(method, that.method) && Objects.equals(path, that.path) && Objects
-              .equals(serviceName, that.serviceName);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(method, path, serviceName);
-        }
-    }
 }
 
 
