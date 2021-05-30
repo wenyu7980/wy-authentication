@@ -15,6 +15,8 @@ public class AuthLoginResult {
     private String username;
     /** 手机号 */
     private String mobile;
+    /** 系统管理员标志 */
+    private Boolean systemFlag;
     /** 权限 */
     private Set<RolePermission> permissions;
 
@@ -48,6 +50,14 @@ public class AuthLoginResult {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public Boolean getSystemFlag() {
+        return systemFlag;
+    }
+
+    public void setSystemFlag(Boolean systemFlag) {
+        this.systemFlag = systemFlag;
     }
 
     public Set<RolePermission> getPermissions() {

@@ -12,6 +12,8 @@ public class ContextInfo {
     private String userId;
     /** 部门id */
     private String departmentId;
+    /** 系统管理员标志 */
+    private Boolean systemFlag;
     /** 请求 */
     private Request request;
     /** matrix权限 */
@@ -30,9 +32,16 @@ public class ContextInfo {
         this.userId = userId;
     }
 
-    public ContextInfo(String userId, String departmentId, Collection<AuthenticationRolePermission> permissions,
-      Request request) {
+    public ContextInfo(Request request) {
+        this.systemFlag = false;
+        this.request = request;
+    }
+
+    public ContextInfo(String userId, String departmentId, Boolean systemFlag,
+      Collection<AuthenticationRolePermission> permissions, Request request) {
         this.userId = userId;
+        this.departmentId = departmentId;
+        this.systemFlag = systemFlag;
         this.request = request;
         this.setPermissions(permissions);
     }

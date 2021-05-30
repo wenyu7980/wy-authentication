@@ -26,6 +26,8 @@ public class UserEntity {
     private String password;
     /** 密码盐 */
     private String salt;
+    /** 系统管理员标志 */
+    private Boolean systemFlag = false;
     /** 有效标志 */
     private Boolean validFlag = true;
     @ManyToMany(mappedBy = "users")
@@ -64,6 +66,10 @@ public class UserEntity {
 
     public Set<RoleEntity> getRoles() {
         return roles;
+    }
+
+    public Boolean getSystemFlag() {
+        return systemFlag;
     }
 
     @Override

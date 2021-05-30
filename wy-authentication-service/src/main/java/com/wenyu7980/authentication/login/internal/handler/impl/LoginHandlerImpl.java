@@ -52,6 +52,7 @@ public class LoginHandlerImpl implements LoginHandler {
         result.setUserId(entity.getId());
         result.setUsername(entity.getUsername());
         result.setMobile(entity.getMobile());
+        result.setSystemFlag(entity.getSystemFlag());
         result.setToken(token.getToken());
 
         result.setPermissions(entity.getRoles().stream().flatMap(r -> r.getPermissions().stream()).map(p -> {
