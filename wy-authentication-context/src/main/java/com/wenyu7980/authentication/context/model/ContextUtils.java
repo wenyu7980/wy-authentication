@@ -12,6 +12,7 @@ public class ContextUtils {
 
     public static void set(ContextInfo info) {
         LOCALS.set(info);
+        info.init();
     }
 
     public static void remove() {

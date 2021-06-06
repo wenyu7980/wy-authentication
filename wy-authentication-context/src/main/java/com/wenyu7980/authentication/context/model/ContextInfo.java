@@ -43,37 +43,10 @@ public class ContextInfo {
         this.departmentId = departmentId;
         this.systemFlag = systemFlag;
         this.request = request;
-        this.setPermissions(permissions);
-    }
-
-    public Set<String> getDepartments() {
-        return Collections.unmodifiableSet(this.getPermissionDepartments().get(this.request));
-    }
-
-    public Set<String> getDepartments(String code, String value) {
-        return Collections.unmodifiableSet(
-          this.resourceDepartments.get(this.request).get(code).stream().filter(a -> a.getResources().contains(value))
-            .flatMap(a -> a.getDepartments().stream()).collect(Collectors.toSet()));
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public Request getRequest() {
-        return request;
-    }
-
-    public Collection<AuthenticationRolePermission> getPermissions() {
-        return permissions;
-    }
-
-    public Map<AuthPermission, Set<String>> getPermissionDepartments() {
-        return permissionDepartments;
-    }
-
-    private void setPermissions(Collection<AuthenticationRolePermission> permissions) {
         this.permissions = permissions;
+    }
+
+    public void init() {
         // 接口-resource-resourceId-departments
         final Map<AuthPermission, Map<String, Map<String, Set<String>>>> resources = new HashMap<>();
         for (AuthenticationRolePermission rolePermission : permissions) {
@@ -129,6 +102,47 @@ public class ContextInfo {
                 }
             }
         }
+    }
+
+    public Set<String> getDepartments() {
+        return Collections.unmodifiableSet(this.getPermissionDepartments().getOrDefault(this.request, new HashSet<>()));
+    }
+
+    public List<AuthResourcePair> getDepartmentPairs(String resource) {
+        return Collections.unmodifiableList(this.resourceDepartments.getOrDefault(this.request, new HashMap<>())
+          .getOrDefault(resource, new ArrayList<>()));
+    }
+
+    public Set<String> getDepartments(String resource, String value) {
+        Map<String, List<AuthResourcePair>> resources = this.resourceDepartments.get(this.request);
+        if (resources != null) {
+            List<AuthResourcePair> pairs = resources.get(resource);
+            if (pairs != null) {
+                return pairs.stream().filter(p -> p.getResources().contains(value))
+                  .flatMap(p -> p.getDepartments().stream()).collect(Collectors.toSet());
+            }
+        }
+        return new HashSet<>();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public Collection<AuthenticationRolePermission> getPermissions() {
+        return permissions;
+    }
+
+    public Map<AuthPermission, Set<String>> getPermissionDepartments() {
+        return permissionDepartments;
+    }
+
+    public Boolean getSystemFlag() {
+        return systemFlag;
     }
 
 }
