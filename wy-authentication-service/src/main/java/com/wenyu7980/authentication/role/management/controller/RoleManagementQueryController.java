@@ -1,5 +1,6 @@
 package com.wenyu7980.authentication.role.management.controller;
 
+import com.wenyu7980.authentication.role.management.domain.RoleManagementDetail;
 import com.wenyu7980.authentication.role.management.domain.RoleManagementListDetail;
 import com.wenyu7980.authentication.role.management.domain.RoleManagementPageDetail;
 import com.wenyu7980.authentication.role.management.handler.RoleManagementQueryHandler;
@@ -10,10 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +26,13 @@ public class RoleManagementQueryController {
     @Autowired
     private RoleManagementQueryHandler queryHandler;
 
-    @ApiOperation("列表查询")
+    @ApiOperation("详情查询")
+    @GetMapping("{id}")
+    public RoleManagementDetail getDetail(@PathVariable String id) {
+        return queryHandler.getDetail(id);
+    }
+
+    @ApiOperation("分页查询")
     @GetMapping()
     public PageBody<RoleManagementPageDetail> getPage(@ApiParam("页码") @RequestParam(defaultValue = "0") int page,
       @ApiParam("页大小") @RequestParam(defaultValue = "10") int size) {

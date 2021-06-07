@@ -41,7 +41,7 @@ public class RoleManagementManipulation {
         @ApiModelProperty(value = "code")
         @Size(max = 128)
         private String code;
-        @ApiModelProperty(value = "方法", required = true)
+        @ApiModelProperty(value = "服务名", required = true)
         @NotEmpty
         private String serviceName;
         @ApiModelProperty(value = "方法", required = true)

@@ -5,6 +5,7 @@ import com.wenyu7980.organization.aggregation.UserAggregation;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,8 @@ public class RoleManagementDetail extends Role {
     private UserAggregation updatedUser;
     @ApiModelProperty(value = "更新时间", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private LocalDateTime updatedDateTime;
+    @ApiModelProperty(value = "权限", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private List<RolePermissionManagementListDetail> permissions;
 
     public UserAggregation getCreatedUser() {
         return createdUser;
@@ -50,5 +53,13 @@ public class RoleManagementDetail extends Role {
 
     public void setUpdatedDateTime(LocalDateTime updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
+    }
+
+    public List<RolePermissionManagementListDetail> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<RolePermissionManagementListDetail> permissions) {
+        this.permissions = permissions;
     }
 }
