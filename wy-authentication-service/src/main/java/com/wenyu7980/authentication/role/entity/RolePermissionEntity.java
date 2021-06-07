@@ -82,4 +82,8 @@ public class RolePermissionEntity {
     public RoleEntity getRole() {
         return role;
     }
+
+    void setRole(RoleEntity role) {
+        this.role = role;
+    }
 }

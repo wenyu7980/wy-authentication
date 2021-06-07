@@ -49,6 +49,7 @@ public class RoleEntity {
     public RoleEntity(String name, Collection<RolePermissionEntity> permissions) {
         this.name = name;
         this.permissions = new ArrayList<>(permissions);
+        this.permissions.forEach(p -> p.setRole(this));
     }
 
     /**
@@ -60,6 +61,7 @@ public class RoleEntity {
         this.name = name;
         this.permissions.clear();
         this.permissions.addAll(permissions);
+        this.permissions.forEach(p -> p.setRole(this));
     }
 
     public String getId() {

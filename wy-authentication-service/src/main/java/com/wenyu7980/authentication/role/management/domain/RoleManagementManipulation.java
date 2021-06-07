@@ -2,6 +2,7 @@ package com.wenyu7980.authentication.role.management.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -17,6 +18,7 @@ public class RoleManagementManipulation {
     private String name;
     @ApiModelProperty(value = "权限", required = true)
     @NotEmpty
+    @Valid
     private List<RolePermission> permissions;
 
     public String getName() {
@@ -39,6 +41,9 @@ public class RoleManagementManipulation {
         @ApiModelProperty(value = "code")
         @Size(max = 128)
         private String code;
+        @ApiModelProperty(value = "方法", required = true)
+        @NotEmpty
+        private String serviceName;
         @ApiModelProperty(value = "方法", required = true)
         @NotEmpty
         private String method;
@@ -64,6 +69,14 @@ public class RoleManagementManipulation {
 
         public void setCode(String code) {
             this.code = code;
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
         }
 
         public String getMethod() {

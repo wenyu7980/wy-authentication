@@ -32,7 +32,11 @@ public class ContextConfig implements WebMvcConfigurer {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
               throws Exception {
-                ContextUtils.set(GSON.fromJson(request.getHeader(CONTEXT), ContextInfo.class));
+                ContextInfo context = GSON.fromJson(request.getHeader(CONTEXT), ContextInfo.class);
+                if (context == null) {
+                    context = new ContextInfo();
+                }
+                ContextUtils.set(context);
                 return true;
             }
 

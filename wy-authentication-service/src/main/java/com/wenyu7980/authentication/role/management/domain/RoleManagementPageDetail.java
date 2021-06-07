@@ -6,11 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
 
-/**
- *
- * @author wenyu
- */
-public class RoleManagementDetail extends Role {
+public class RoleManagementPageDetail extends Role {
     @ApiModelProperty(value = "创建者", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private UserAggregation createdUser;
     @ApiModelProperty(value = "创建时间", accessMode = ApiModelProperty.AccessMode.READ_ONLY)

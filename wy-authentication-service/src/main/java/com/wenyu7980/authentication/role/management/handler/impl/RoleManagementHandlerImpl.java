@@ -54,21 +54,7 @@ public class RoleManagementHandlerImpl implements RoleManagementHandler {
     private List<RolePermissionEntity> getPermissions(
       Collection<RoleManagementManipulation.RolePermission> permissions) {
         return permissions.stream().map(p -> new RolePermissionEntity(p.getCode(),
-          permissionService.findBYKey(getServiceName(p.getPath()), p.getMethod(), getPath(p.getPath())),
-          p.getResource(), p.getResourceId(), p.getDepartmentId(), p.isCurrentFlag(), p.isChildFlag()))
-          .collect(Collectors.toList());
-    }
-
-    private String getServiceName(String path) {
-        return path.split("/")[1];
-    }
-
-    private String getPath(String path) {
-        String[] split = path.split("/");
-        String p = "/";
-        for (int i = 2; i < split.length; i++) {
-            p = p + "/" + split[i];
-        }
-        return p;
+          permissionService.findBYKey(p.getServiceName(), p.getMethod(), p.getPath()), p.getResource(),
+          p.getResourceId(), p.getDepartmentId(), p.isCurrentFlag(), p.isChildFlag())).collect(Collectors.toList());
     }
 }
